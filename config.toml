@@ -1,0 +1,29 @@
+baseURL = 'https://elledub-lw.github.io/asymmetrical-collage/'
+languageCode = 'en-us'
+title = 'Asymmetrical Collage'
+
+# Build settings
+buildDrafts = false
+buildFuture = false
+canonifyURLs = true
+
+# Parameters
+[params]
+    description = "Riding the waves of change through financial sovereignty, privacy, and security analysis"
+
+    [params.social]
+        twitter = "https://twitter.com/asymmetricalc"
+        telegram = "https://t.me/asymmetricalcollage"
+        reddit = "https://www.reddit.com/r/AsymmetricalCollage"
+        github = "https://github.com/elledub-lw/asymmetrical-collage"
+
+# Taxonomies
+[taxonomies]
+    tag = "tags"
+    category = "categories"
+
+# Enable rendering of HTML in markdown
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

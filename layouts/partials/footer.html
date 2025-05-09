@@ -1,0 +1,40 @@
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="{{ .Site.BaseURL }}">Home</a></li>
+                <li><a href="{{ .Site.BaseURL }}articles/">Articles</a></li>
+                <li><a href="{{ .Site.BaseURL }}about/">About</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Content</h3>
+            <ul>
+                <li><a href="{{ .Site.BaseURL }}articles/#risk-management">Risk Management</a></li>
+                <li><a href="{{ .Site.BaseURL }}articles/#bitcoin">Bitcoin Analysis</a></li>
+                <li><a href="{{ .Site.BaseURL }}articles/#privacy">Privacy & Security</a></li>
+                <li><a href="{{ .Site.BaseURL }}articles/#liberty">Ethics & Liberty</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Connect</h3>
+            <ul>
+                {{ with .Site.Params.social }}
+                <li><a href="{{ .twitter }}" target="_blank">Twitter</a></li>
+                <li><a href="{{ .telegram }}" target="_blank">Telegram</a></li>
+                <li><a href="{{ .reddit }}" target="_blank">Reddit</a></li>
+                <li><a href="{{ .github }}" target="_blank">GitHub</a></li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Newsletter</h3>
+            <p>Stay informed about the latest trends and insights.</p>
+            <a href="#newsletter" class="cta-button" style="margin-top: 1rem;">Subscribe Now</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
+    </div>
+</footer>

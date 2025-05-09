@@ -1,0 +1,66 @@
+{{ define "main" }}
+<div class="page-header">
+    <h1>Articles</h1>
+    <p class="page-subtitle">Dive into our in-depth analysis on risk management, Bitcoin, and financial sovereignty. Quality over quantity, every time.</p>
+</div>
+
+<div class="filters">
+    <a href="{{ .RelPermalink }}" class="filter-btn active">All</a>
+    <a href="#risk-management" class="filter-btn">Risk Management</a>
+    <a href="#bitcoin" class="filter-btn">Bitcoin</a>
+    <a href="#financial-sovereignty" class="filter-btn">Financial Sovereignty</a>
+    <a href="#privacy" class="filter-btn">Privacy & Security</a>
+    <a href="#liberty" class="filter-btn">Ethics & Liberty</a>
+</div>
+
+<div class="articles-grid">
+    {{ $articles := where .Pages "Type" "articles" }}
+    {{ $articles := $articles.ByDate.Reverse }}
+
+    {{ if gt (len $articles) 0 }}
+    <!-- Featured Article (First/Most Recent) -->
+    {{ with index $articles 0 }}
+    <article class="article-card featured-article">
+        <div class="featured-badge">Featured</div>
+        <div class="article-content">
+            <div class="article-meta">
+                <span class="article-date">{{ .Date.Format "January 2, 2006" }}</span>
+                <div class="article-tags">
+                    {{ range .Params.tags }}
+                    <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+                    {{ end }}
+                </div>
+            </div>
+            <h2 class="article-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h2>
+            <p class="article-excerpt">{{ .Summary }}</p>
+            <a href="{{ .RelPermalink }}" class="read-more">Read Full Article →</a>
+        </div>
+        <div class="article-image"></div>
+    </article>
+    {{ end }}
+
+    <!-- Recent Articles (Skip first one) -->
+    {{ range after 1 $articles }}
+    <article class="article-card">
+        <div class="article-meta">
+            <span class="article-date">{{ .Date.Format "January 2, 2006" }}</span>
+            <div class="article-tags">
+                {{ range .Params.tags }}
+                <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+                {{ end }}
+            </div>
+        </div>
+        <div class="article-content">
+            <h3 class="article-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            <p class="article-excerpt">{{ .Summary }}</p>
+            <a href="{{ .RelPermalink }}" class="read-more">Read More →</a>
+        </div>
+    </article>
+    {{ end }}
+    {{ end }}
+</div>
+{{ end }}
