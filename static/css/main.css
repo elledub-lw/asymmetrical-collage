@@ -417,7 +417,7 @@ nav {
 }
 
 .post-subtitle {
-    color: #767676;
+    color: white;
     font-size: 1.125rem;
     margin-bottom: 1rem;
 }
@@ -427,11 +427,12 @@ nav {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    color: #767676;
+    color: white;
 }
 
 .post-date {
     font-size: 0.875rem;
+    color: white;
 }
 
 .post-tags {
@@ -498,9 +499,13 @@ footer {
 }
 
 .footer-section a {
-    color: #189AB4;
+    color: white;
     text-decoration: none;
     transition: color 0.3s ease;
+}
+
+.footer-section .cta-button {
+    color: white !important;
 }
 
 .footer-section a:hover {
@@ -511,8 +516,8 @@ footer {
     text-align: center;
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid #189AB4;
-    color: #189AB4;
+    border-top: 1px solid white;
+    color: white;
 }
 
 /* Responsive Design */

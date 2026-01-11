@@ -13,9 +13,6 @@ canonifyURLs = true
 
     [params.social]
         twitter = "https://twitter.com/asymmetricalc"
-        telegram = "https://t.me/asymmetricalcollage"
-        reddit = "https://www.reddit.com/r/AsymmetricalCollage"
-        github = "https://github.com/elledub-lw/asymmetrical-collage"
 
 # Taxonomies
 [taxonomies]

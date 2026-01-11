@@ -4,17 +4,17 @@
             <h3>Navigation</h3>
             <ul>
                 <li><a href="{{ .Site.BaseURL }}">Home</a></li>
-                <li><a href="{{ .Site.BaseURL }}articles/">Articles</a></li>
+                <li><a href="{{ .Site.BaseURL }}articles/">Blog</a></li>
                 <li><a href="{{ .Site.BaseURL }}about/">About</a></li>
             </ul>
         </div>
         <div class="footer-section">
             <h3>Content</h3>
             <ul>
-                <li><a href="{{ .Site.BaseURL }}articles/#risk-management">Risk Management</a></li>
-                <li><a href="{{ .Site.BaseURL }}articles/#bitcoin">Bitcoin Analysis</a></li>
-                <li><a href="{{ .Site.BaseURL }}articles/#privacy">Privacy & Security</a></li>
-                <li><a href="{{ .Site.BaseURL }}articles/#liberty">Ethics & Liberty</a></li>
+                <li><a href="{{ .Site.BaseURL }}tags/risk-management">Risk Management</a></li>
+                <li><a href="{{ .Site.BaseURL }}tags/bitcoin">Bitcoin Analysis</a></li>
+                <li><a href="{{ .Site.BaseURL }}tags/privacy">Privacy & Security</a></li>
+                <li><a href="{{ .Site.BaseURL }}tags/financial-sovereignty">Financial Sovereignty</a></li>
             </ul>
         </div>
         <div class="footer-section">
@@ -22,16 +22,13 @@
             <ul>
                 {{ with .Site.Params.social }}
                 <li><a href="{{ .twitter }}" target="_blank">Twitter</a></li>
-                <li><a href="{{ .telegram }}" target="_blank">Telegram</a></li>
-                <li><a href="{{ .reddit }}" target="_blank">Reddit</a></li>
-                <li><a href="{{ .github }}" target="_blank">GitHub</a></li>
                 {{ end }}
             </ul>
         </div>
         <div class="footer-section">
             <h3>Newsletter</h3>
             <p>Stay informed about the latest trends and insights.</p>
-            <a href="#newsletter" class="cta-button" style="margin-top: 1rem;">Subscribe Now</a>
+            <a href="/index.xml" class="cta-button" style="margin-top: 1rem;" target="_blank">RSS Feed</a>
         </div>
     </div>
     <div class="footer-bottom">

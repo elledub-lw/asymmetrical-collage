@@ -1,0 +1,35 @@
+{{ define "main" }}
+<div class="page-header">
+    <h1>{{ .Title }}</h1>
+    <p class="page-subtitle">Articles tagged with {{ .Title | lower }}</p>
+</div>
+
+<div class="articles-grid">
+    {{ $articles := .Pages }}
+    {{ if gt (len $articles) 0 }}
+    
+    {{ range $articles }}
+    <article class="article-card">
+        <div class="article-meta">
+            <span class="article-date">{{ .Date.Format "January 2, 2006" }}</span>
+            <div class="article-tags">
+                {{ range .Params.tags }}
+                <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+                {{ end }}
+            </div>
+        </div>
+        <div class="article-content">
+            <h3 class="article-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            <p class="article-excerpt">{{ .Summary }}</p>
+            <a href="{{ .RelPermalink }}" class="read-more">Read More →</a>
+        </div>
+    </article>
+    {{ end }}
+    
+    {{ else }}
+    <p style="text-align: center; padding: 2rem;">No articles found with this tag.</p>
+    {{ end }}
+</div>
+{{ end }}
