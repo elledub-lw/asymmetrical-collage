@@ -1,4 +1,3 @@
-```markdown
 ---
 title: "The Comfort Tax"
 date: 2026-01-11
@@ -26,6 +25,3 @@ You don't have to do everything yourself. That's not the point. The point is kno
 Because the question isn't whether these systems will always be there for you.
 
 The question is: what kind of person will you be if they're not?
-
-```
-
