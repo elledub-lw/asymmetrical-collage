@@ -10,6 +10,7 @@ canonifyURLs = true
 # Parameters
 [params]
     description = "Riding the waves of change through financial sovereignty, privacy, and security analysis"
+    images = ["/images/RSS.png"]
 
     [params.social]
         twitter = "https://twitter.com/asymmetricalc"
