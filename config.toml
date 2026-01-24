@@ -13,7 +13,7 @@ canonifyURLs = true
 
   [params.social]
         twitter = "https://twitter.com/asymmetricalc"
-        nostr = "nostr:npub1m3qu40agsucj9mkvunvak7yhq86hlgu8sc7mf4w0fhahv0y859ts04zq5r"
+        nostr = "https://njump.me/npub1m3qu40agsucj9mkvunvak7yhq86hlgu8sc7mf4w0fhahv0y859ts04zq5r"
         
 # Taxonomies
 [taxonomies]
