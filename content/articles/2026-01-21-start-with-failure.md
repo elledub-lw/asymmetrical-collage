@@ -1,10 +1,10 @@
------
-
-## title: “Start With Failure”
+---
+title: "Start With Failure"
 date: 2026-01-21
 draft: false
-tags: [“mental-models”, “inversion”, “decision-making”]
-summary: “Avoiding stupid is easier than achieving brilliant”
+tags: ["mental-models", "inversion", "decision-making"]
+summary: "Avoiding stupid is easier than achieving brilliant"
+---
 
 Most people ask: “How do I succeed?” Better question: “How would I fail?”
 

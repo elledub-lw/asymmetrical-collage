@@ -1,10 +1,10 @@
------
-
-## title: “Then What Happens?”
+---
+title: "Then What Happens?"
 date: 2026-01-19
 draft: false
-tags: [“mental-models”, “decision-making”, “long-term-thinking”]
-summary: “3 steps ahead”
+tags: ["mental-models", "decision-making", "long-term-thinking"]
+summary: "3 steps ahead"
+---
 
 Most people stop thinking at the first consequence. “If I do X, then Y will happen.” Full stop.
 

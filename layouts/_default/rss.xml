@@ -25,13 +25,6 @@
     {{ with .OutputFormats.Get "RSS" -}}
     {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{ end -}}
-    <image>
-      <url>{{ .Site.BaseURL }}images/RSS.png</url>
-      <title>{{ .Site.Title }}</title>
-      <link>{{ .Site.BaseURL }}</link>
-    </image>
-    <itunes:image href="{{ .Site.BaseURL }}images/RSS.png"/>
-    <itunes:author>{{ .Site.Title }}</itunes:author>
     {{ range $pages }}
     <item>
       <title>{{ .Title }}</title>

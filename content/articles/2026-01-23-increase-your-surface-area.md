@@ -1,10 +1,10 @@
------
-
-## title: “Increase Your Surface Area”
+---
+title: "Increase Your Surface Area"
 date: 2026-01-23
 draft: false
-tags: [“luck”, “opportunity”, “action”]
-summary: “Luck isn’t random. It has patterns.”
+tags: ["luck", "opportunity", "action"]
+summary: "Luck isn't random. It has patterns."
+---
 
 Luck isn’t random. It has patterns.
 

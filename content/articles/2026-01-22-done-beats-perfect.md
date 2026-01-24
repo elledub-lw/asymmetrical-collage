@@ -1,10 +1,10 @@
------
-
-## title: “Done Beats Perfect”
+---
+title: "Done Beats Perfect"
 date: 2026-01-22
 draft: false
-tags: [“building”, “perfectionism”, “shipping”]
-summary: “If you’re not embarrassed by your first version, you waited too long”
+tags: ["building", "perfectionism", "shipping"]
+summary: "If you're not embarrassed by your first version, you waited too long"
+---
 
 Perfection is a trap. Not because perfect isn’t good—it is. But because perfect never ships.
 
