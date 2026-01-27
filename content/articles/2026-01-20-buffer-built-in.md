@@ -1,6 +1,6 @@
 ---
 
-## title: “Buffer Built-In”
+title: “Buffer Built-In”
 date: 2026-01-20
 draft: false
 tags: [“resilience”, “margin-of-safety”, “mental-models”]
