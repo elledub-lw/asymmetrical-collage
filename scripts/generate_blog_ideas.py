@@ -2,7 +2,7 @@
 """
 Daily Blog Idea Generator for Asymmetrical Collage
 
-Reads recent blog posts, uses Claude API to generate 3 new post ideas,
+Reads recent blog posts and context files, uses Claude API to generate 3 new post ideas,
 and sends them via Gmail.
 """
 
@@ -14,6 +14,7 @@ from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 from pathlib import Path
 import anthropic
+import re
 
 
 def get_recent_posts(articles_dir: Path, count: int = 10) -> list[dict]:
@@ -59,15 +60,23 @@ def get_recent_posts(articles_dir: Path, count: int = 10) -> list[dict]:
     return posts
 
 
-def read_context_file(scripts_dir: Path) -> str:
-    """Read the blog context file."""
-    context_file = scripts_dir / "blog_context.md"
-    if context_file.exists():
-        return context_file.read_text(encoding="utf-8")
-    return ""
+def read_all_context_files(context_dir: Path) -> dict[str, str]:
+    """Read all context files from the context directory."""
+    context_files = {}
+
+    if not context_dir.exists():
+        return context_files
+
+    for filepath in context_dir.glob("*.md"):
+        content = filepath.read_text(encoding="utf-8")
+        # Skip files that are just placeholder templates
+        if content.strip() and not content.strip().startswith("<!--"):
+            context_files[filepath.stem] = content
+
+    return context_files
 
 
-def generate_ideas(recent_posts: list[dict], context: str) -> str:
+def generate_ideas(recent_posts: list[dict], context_files: dict[str, str]) -> str:
     """Use Claude API to generate blog post ideas."""
     client = anthropic.Anthropic()
 
@@ -77,40 +86,90 @@ def generate_ideas(recent_posts: list[dict], context: str) -> str:
         for p in recent_posts[:10]
     ])
 
+    # Build context from all files
+    context_sections = []
+
+    # Order matters - instructions first
+    priority_order = ['instructions', 'themes', 'writing_styles', 'refinements', 'banked_drafts', 'exemplar_posts', 'weekly_inputs']
+
+    for key in priority_order:
+        if key in context_files:
+            context_sections.append(f"## {key.upper().replace('_', ' ')}\n\n{context_files[key]}")
+
+    # Add any remaining files
+    for key, content in context_files.items():
+        if key not in priority_order:
+            context_sections.append(f"## {key.upper().replace('_', ' ')}\n\n{content}")
+
+    full_context = "\n\n---\n\n".join(context_sections)
+
     prompt = f"""You are a creative writing assistant for the blog "Asymmetrical Collage."
 
-## Blog Context
-{context}
+{full_context}
 
-## Recent Posts (to avoid repetition)
+---
+
+## RECENT POSTS (to avoid repetition)
+
 {posts_summary}
 
-## Your Task
-Generate 3 unique blog post ideas that:
-1. Fit the blog's themes and writing style
-2. Are NOT similar to recent posts listed above
-3. Have a counterintuitive or inverted angle
-4. Are actionable and memorable
+---
+
+## YOUR TASK
+
+Based on the instructions and context above, generate 3 unique blog post ideas.
 
 For each idea, provide:
-- **Title:** A compelling, concise title
-- **Summary:** One sentence for the RSS feed (mirrors the core insight)
-- **Tags:** 3-4 relevant tags from the suggested list
+- **Title:** A compelling, concise title (shorter and punchier is better)
+- **Summary:** One intriguing sentence for RSS (not an explanation - make the reader want to click)
+- **Tags:** 3-4 relevant tags
+- **Style:** Which writing style from WRITING_STYLES this uses
 - **Hook:** The opening paragraph (2-3 sentences that grab attention)
 - **Core Insight:** The main point to develop (1-2 sentences)
-- **Closing:** A suggested ending question or call-to-action
+- **Closing:** A suggested ending (vary format: question, assertion, directive, or observation)
 
-Format your response clearly with "## Idea 1:", "## Idea 2:", "## Idea 3:" headers."""
+Format your response clearly with "## Idea 1:", "## Idea 2:", "## Idea 3:" headers.
+
+End with a brief "## My Take:" section explaining why each draft takes its approach and which you think is strongest."""
 
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
-        max_tokens=2000,
+        max_tokens=3000,
         messages=[
             {"role": "user", "content": prompt}
         ]
     )
 
     return message.content[0].text
+
+
+def markdown_to_html(text: str) -> str:
+    """Convert markdown to HTML with proper formatting."""
+    html = text
+
+    # Convert headers
+    html = re.sub(r'^## (.+)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)
+    html = re.sub(r'^### (.+)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
+
+    # Convert bold
+    html = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', html)
+
+    # Convert italic
+    html = re.sub(r'\*(.+?)\*', r'<em>\1</em>', html)
+
+    # Convert line breaks (but not inside tags)
+    html = re.sub(r'\n\n', '</p><p>', html)
+    html = re.sub(r'\n', '<br>', html)
+
+    # Wrap in paragraph
+    html = f'<p>{html}</p>'
+
+    # Clean up empty paragraphs
+    html = re.sub(r'<p>\s*</p>', '', html)
+    html = re.sub(r'<p>\s*<h', '<h', html)
+    html = re.sub(r'</h(\d)>\s*</p>', r'</h\1>', html)
+
+    return html
 
 
 def send_email(ideas: str, recipient: str, sender: str, password: str):
@@ -132,29 +191,90 @@ Generated on {today}
 Generated by your daily blog idea automation.
 """
 
-    # HTML version (for better formatting)
-    html_content = f"""
+    # HTML version with proper formatting
+    ideas_html = markdown_to_html(ideas)
+
+    html_content = f"""<!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <style>
-    body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 700px; margin: 0 auto; padding: 20px; }}
-    h1 {{ color: #05445E; border-bottom: 2px solid #189AB4; padding-bottom: 10px; }}
-    h2 {{ color: #189AB4; margin-top: 30px; }}
-    strong {{ color: #05445E; }}
-    .tags {{ background: #f0f7f9; padding: 5px 10px; border-radius: 15px; font-size: 0.9em; display: inline-block; margin: 5px 0; }}
-    .section {{ margin-left: 15px; margin-bottom: 10px; }}
-    hr {{ border: none; border-top: 1px solid #ddd; margin: 30px 0; }}
-    .footer {{ color: #888; font-size: 0.85em; }}
+    body {{
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+        font-size: 16px;
+    }}
+    h1 {{
+        color: #05445E;
+        border-bottom: 2px solid #189AB4;
+        padding-bottom: 10px;
+        font-size: 24px;
+        margin-top: 0;
+    }}
+    h2 {{
+        color: #189AB4;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 20px;
+        border-left: 4px solid #189AB4;
+        padding-left: 12px;
+    }}
+    h3 {{
+        color: #05445E;
+        font-size: 16px;
+        margin-top: 20px;
+    }}
+    p {{
+        margin: 10px 0;
+        font-size: 16px;
+    }}
+    strong {{
+        color: #05445E;
+    }}
+    .header {{
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }}
+    .header h1 {{
+        margin: 0;
+        border: none;
+        padding: 0;
+    }}
+    .header p {{
+        margin: 10px 0 0 0;
+        color: #666;
+    }}
+    hr {{
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 30px 0;
+    }}
+    .footer {{
+        color: #888;
+        font-size: 14px;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }}
 </style>
 </head>
 <body>
-<h1>Daily Blog Ideas</h1>
-<p><em>Generated on {today} for Asymmetrical Collage</em></p>
+<div class="header">
+    <h1>Daily Blog Ideas</h1>
+    <p>Generated on {today} for Asymmetrical Collage</p>
+</div>
 
-{ideas.replace(chr(10), '<br>').replace('## ', '<h2>').replace('**', '<strong>').replace('</strong>:', ':</strong>')}
+{ideas_html}
 
-<hr>
-<p class="footer">Generated by your daily blog idea automation.</p>
+<div class="footer">
+    <p>Generated by your daily blog idea automation.</p>
+</div>
 </body>
 </html>
 """
@@ -184,16 +304,18 @@ def main():
     script_dir = Path(__file__).parent
     repo_root = script_dir.parent
     articles_dir = repo_root / "content" / "articles"
+    context_dir = repo_root / "context"
 
     print("Reading recent blog posts...")
     recent_posts = get_recent_posts(articles_dir)
     print(f"Found {len(recent_posts)} recent posts")
 
-    print("Reading blog context...")
-    context = read_context_file(script_dir)
+    print("Reading context files...")
+    context_files = read_all_context_files(context_dir)
+    print(f"Loaded {len(context_files)} context files: {list(context_files.keys())}")
 
     print("Generating blog ideas with Claude...")
-    ideas = generate_ideas(recent_posts, context)
+    ideas = generate_ideas(recent_posts, context_files)
     print("Ideas generated successfully")
 
     print("Sending email...")
