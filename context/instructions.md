@@ -50,12 +50,6 @@ Asymmetrical Collage is a daily blog focused on freedom, liberty, personal sover
 - Look for cross-domain connections
 - Select diverse topics for today's drafts
 
-**Check WEEKLY_INPUTS.md:**
-
-- Review Laurent's recent observations and ideas
-- Incorporate current thinking or readings
-- Use these as inspiration or starting points
-
 **Check BANKED_DRAFTS.md (if it exists):**
 
 - Review previously set-aside drafts that might be ready
@@ -144,7 +138,6 @@ After presenting the three drafts, include:
 - [ ] Not repeating themes from last 7 days
 - [ ] Not contradicting previous positions (unless intentional)
 - [ ] Drawing from different sections of THEMES.md
-- [ ] Incorporating WEEKLY_INPUTS when relevant
 
 **Style Variety:**
 
@@ -339,7 +332,6 @@ Review banked drafts periodically:
 **THEMES.md** - Master list of topics and angles to explore
 **WRITING_STYLES.md** - Three foundational writing approaches
 **BLOG_REFINEMENTS.md** - Track record of posts and learnings
-**WEEKLY_INPUTS.md** - Laurent's current observations and ideas
 **EXEMPLAR_POSTS.md** - Favorite posts for reference and inspiration
 **BANKED_DRAFTS.md** - Strong drafts set aside for future iteration
 
@@ -379,7 +371,6 @@ Review banked drafts periodically:
 - Assess topic distribution (are we covering variety?)
 - Evaluate style effectiveness (which approaches work best?)
 - Update THEMES.md with new ideas
-- Archive WEEKLY_INPUTS.md and start fresh
 - Review banked drafts for publishing readiness
 - Refine instructions based on patterns
 

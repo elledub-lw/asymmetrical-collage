@@ -90,7 +90,7 @@ def generate_ideas(recent_posts: list[dict], context_files: dict[str, str]) -> s
     context_sections = []
 
     # Order matters - instructions first
-    priority_order = ['instructions', 'themes', 'writing_styles', 'refinements', 'banked_drafts', 'exemplar_posts', 'weekly_inputs']
+    priority_order = ['instructions', 'themes', 'writing_styles', 'refinements', 'banked_drafts', 'exemplar_posts']
 
     for key in priority_order:
         if key in context_files:
