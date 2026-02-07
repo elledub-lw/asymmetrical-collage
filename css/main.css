@@ -129,6 +129,41 @@ nav {
     background-color: #e8820a;
 }
 
+/* Daily Quote Styles */
+.daily-quote {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.daily-quote .quote-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #999;
+    margin: 0 0 1rem 0;
+}
+
+.daily-quote .quote-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #333;
+    line-height: 1.8;
+    margin: 0 0 0.75rem 0;
+}
+
+.daily-quote .quote-author {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: #555;
+    margin: 0;
+}
+
 /* Social Links Styles */
 .social-links {
     position: fixed;
