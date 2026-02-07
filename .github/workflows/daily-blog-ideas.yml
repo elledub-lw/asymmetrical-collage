@@ -1,13 +1,13 @@
-name: Daily Blog Ideas
+name: Daily Automation
 
 on:
   schedule:
-    # Runs at 7:00 UTC (8:00 AM CET)
-    - cron: '0 7 * * *'
+    # Runs at 4:00 UTC (5:00 AM CET)
+    - cron: '0 4 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
-  generate-ideas:
+  daily-tasks:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,3 +30,15 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           python scripts/generate_blog_ideas.py
+
+      - name: Trigger site rebuild for daily quote
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'gh-pages.yml',
+              ref: 'main'
+            })
+            console.log('Triggered gh-pages rebuild for daily quote update')

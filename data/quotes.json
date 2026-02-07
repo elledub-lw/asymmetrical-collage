@@ -1,0 +1,84 @@
+{
+  "quotes": [
+    {
+      "text": "The best time to plant a tree was 20 years ago. The second best time is now.",
+      "author": "Chinese Proverb",
+      "source": null,
+      "year": null,
+      "url": null,
+      "tags": ["action", "time"]
+    },
+    {
+      "text": "Risk comes from not knowing what you're doing.",
+      "author": "Warren Buffett",
+      "source": "Berkshire Hathaway Annual Meeting",
+      "year": 1993,
+      "url": null,
+      "tags": ["risk", "knowledge"]
+    },
+    {
+      "text": "The reasonable man adapts himself to the world; the unreasonable one persists in trying to adapt the world to himself. Therefore all progress depends on the unreasonable man.",
+      "author": "George Bernard Shaw",
+      "source": "Man and Superman",
+      "year": 1903,
+      "url": null,
+      "tags": ["sovereignty", "progress"]
+    },
+    {
+      "text": "Ships in harbor are safe, but that's not what ships are built for.",
+      "author": "John A. Shedd",
+      "source": "Salt from My Attic",
+      "year": 1928,
+      "url": null,
+      "tags": ["risk", "action"]
+    },
+    {
+      "text": "The only way to do great work is to love what you do.",
+      "author": "Steve Jobs",
+      "source": "Stanford Commencement Address",
+      "year": 2005,
+      "url": null,
+      "tags": ["work", "passion"]
+    },
+    {
+      "text": "Wind extinguishes a candle and energizes fire. Likewise with randomness, uncertainty, chaos: you want to use them, not hide from them.",
+      "author": "Nassim Nicholas Taleb",
+      "source": "Antifragile",
+      "year": 2012,
+      "url": null,
+      "tags": ["antifragility", "risk"]
+    },
+    {
+      "text": "It is not the strongest of the species that survives, nor the most intelligent, but the one most responsive to change.",
+      "author": "Charles Darwin",
+      "source": null,
+      "year": null,
+      "url": null,
+      "tags": ["adaptation", "resilience"]
+    },
+    {
+      "text": "The secret of freedom lies in educating people, whereas the secret of tyranny is in keeping them ignorant.",
+      "author": "Maximilien Robespierre",
+      "source": null,
+      "year": null,
+      "url": null,
+      "tags": ["freedom", "sovereignty"]
+    },
+    {
+      "text": "Compound interest is the eighth wonder of the world. He who understands it, earns it; he who doesn't, pays it.",
+      "author": "Albert Einstein",
+      "source": null,
+      "year": null,
+      "url": null,
+      "tags": ["compounding", "long-term"]
+    },
+    {
+      "text": "The impediment to action advances action. What stands in the way becomes the way.",
+      "author": "Marcus Aurelius",
+      "source": "Meditations",
+      "year": 170,
+      "url": null,
+      "tags": ["stoicism", "obstacles"]
+    }
+  ]
+}

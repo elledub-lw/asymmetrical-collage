@@ -7,6 +7,17 @@
     </div>
 </section>
 
+{{ with .Site.Data.quotes.quotes }}
+{{ $dayOfYear := now.YearDay }}
+{{ $index := mod $dayOfYear (len .) }}
+{{ $quote := index . $index }}
+<section class="daily-quote">
+    <p class="quote-label">Quote of the Day</p>
+    <p class="quote-text">"{{ $quote.text }}"</p>
+    <p class="quote-author">— {{ $quote.author }}</p>
+</section>
+{{ end }}
+
 <div class="social-links">
     {{ with .Site.Params.social }}
     <a href="{{ .twitter }}" target="_blank" aria-label="Twitter">
