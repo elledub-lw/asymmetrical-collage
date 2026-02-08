@@ -4,77 +4,29 @@
 
 Collection of strong draft posts set aside for future refinement and publication. These represent concepts worth developing carefully rather than rushing to publish.
 
------
+---
 
-## PUBLISHED â€” Remove from active bank
+## PUBLISHED - Remove from active bank
 
 ### Asymmetric Bets - "Bet Small, Win Big"
 **Status:** PUBLISHED January 31, 2026
-**Note:** This was the HIGH PRIORITY draft. Now live on the blog.
-
------
-
-## HIGH PRIORITY â€” Ready or Near-Ready
+**Note:** HIGH PRIORITY draft explaining the blog's core philosophy.
 
 ### Permission vs Permissionless - "Stop Asking"
-
-**Date Generated:** February 1, 2026
-**Style:** Provocative (Foundation)
-**Why Banked:** Strong draft generated during Feb 1 rotation but "Luck Has a Surface Area" was selected. Aligns directly with sovereignty/permissionless theme â€” core to blog identity.
-
-**Current Draft:**
-
-Most people wait for permission. Permission to start. Permission to try. Permission to publish. Permission to ship.
-
-The permission never comes. Or it comes too late to matter.
-
-Permissionless systems don't wait. Bitcoin didn't ask banks for approval. Wikipedia didn't ask encyclopedias. The open internet didn't ask anyone.
-
-They just existed. And became essential.
-
-You don't need credentials to write. You don't need approval to build. You don't need a track record to start.
-
-The gatekeepers used to control access. Now the gate is open. Walking through it is the only permission you need.
-
-The world is permissionless. Most people still act like it isn't.
-
-**Notes for Iteration:**
-- Draft was ready as written during generation
-- Bitcoin/Wikipedia/internet examples are original (not Taleb)
-- Observation ending â€” strong, no changes needed
-- RSS summary: "The world is permissionless. Most people still act like it isn't."
-- Could publish as-is next week
-
------
+**Status:** PUBLISHED February 5, 2026
+**Note:** Published as-is from banked version. Strong sovereignty piece.
 
 ### Red Lines - "Draw the Line"
+**Status:** PUBLISHED February 8, 2026
+**Note:** Published with minor refinements (more concrete examples of red lines, changed ending from "formlessness" to "drift").
 
-**Date Generated:** January 23, 2026
-**Style:** Provocative (Foundation)
-**Why Banked:** Strong message about boundaries, didn't fit rotation but solid concept
+### Lindy Effect - "Trust Time"
+**Status:** PUBLISHED February 3, 2026
+**Note:** Reworked with completely original examples (grandfather's cast iron pan, 1850 company vs 2020 unicorn). Successfully avoided Taleb echo.
 
-**Current Draft:**
+---
 
-Most people negotiate everything. Every boundary is flexible. Every principle has exceptions. Every standard bends under pressure.
-
-This isn't open-mindedness. It's drift.
-
-Red lines aren't about being rigid. They're about knowing what you won't trade. What you won't compromise. What stays non-negotiable even when it costs you.
-
-No lying, even when convenient. No compromising values for comfort. No tolerating disrespect, even from important people.
-
-The people who seem most free often have the clearest boundaries. They know what they won't do, which makes everything else simpler.
-
-Flexibility without boundaries isn't freedom. It's formlessness.
-
-**Notes for Iteration:**
-- Strong opening contrast and assertion ending
-- "Formlessness" is a powerful concept
-- Could use more concrete examples of red lines
-- Consider whether examples need to be more personal
-- Near-ready, might need one round of tightening
-
------
+## HIGH PRIORITY - Ready or Near-Ready
 
 ### Skin in the Game - "Whose Skin Is It?"
 
@@ -96,14 +48,14 @@ Words are cheap. Risk is expensive. Trust the expensive signals.
 
 **Notes for Iteration:**
 - "Trust the expensive signals" is a strong closer
-- WARNING: "Watch What They Buy" (Jan 29) covers expensive signals territory â€” this post needs to be differentiated clearly
+- WARNING: "Watch What They Buy" (Jan 29) covers expensive signals territory - this post needs to be differentiated clearly
 - Angle here is WHO to listen to. Jan 29 was HOW to read signals. Different enough but space them out.
 - Could use more concrete examples of "expensive signals"
 - Assertion ending works
 
------
+---
 
-## NEEDS WORK â€” Requires iteration before publishing
+## NEEDS WORK - Requires iteration before publishing
 
 ### Emergence - "Set the Rules. Let It Build."
 
@@ -134,7 +86,7 @@ This works for personal systems too. Define the rules. Follow them consistently.
 - "You don't need to design the cathedral" is the anchor line
 - Needs one more concrete personal example to land
 
------
+---
 
 ### Antifragility - "What Doesn't Kill You"
 
@@ -150,7 +102,7 @@ Some things stay the same under stress. They absorb the shock and return to form
 
 Some things get stronger under stress. Muscles after lifting. Immune systems after exposure. Skills after challenge.
 
-That's antifragility. Not just surviving stressâ€”benefiting from it. Gaining from disorder. Growing through volatility.
+That's antifragility. Not just surviving stress - benefiting from it. Gaining from disorder. Growing through volatility.
 
 Most people optimize for not breaking. They build fragile systems wrapped in bubble wrap. Safe until they're not.
 
@@ -162,37 +114,10 @@ Fragile avoids. Resilient withstands. Antifragile gains.
 - WARNING: Three-part progression (fragile/resilient/antifragile) is Taleb's framework and his examples (glass, muscles, immune system) echo his work closely
 - Needs completely new examples to avoid Taleb echo
 - Laurent's expertise could provide original examples (risk management stress testing? alpine climbing exposure?)
-- Three-line closing is strong â€” keep the structure, change the examples
+- Three-line closing is strong - keep the structure, change the examples
 - Core concept is foundational to blog but execution needs rework
 
------
-
-### Lindy Effect - (Title TBD)
-
-**Date Generated:** January 20, 2026
-**Style:** Observational (Foundation)
-**Why Banked:** Strong concept from unexplored Historical Patterns territory
-
-**Current Draft:**
-
-Ideas have life expectancy. The longer something has survived, the longer it's likely to survive.
-
-A book published 100 years ago that's still read today will probably be read 100 years from now. A technology that's been around for decades isn't going anywhere soon. Principles that have worked across centuries will likely work tomorrow.
-
-This is the Lindy Effect. Time is the ultimate filter. What survives carries information about what works.
-
-The new isn't automatically better. The old isn't automatically obsolete. But the really oldâ€”the ideas, tools, and practices that have survived wave after wave of changeâ€”those deserve your attention.
-
-Most of what's trending today won't matter next year. What mattered to your grandparents might matter to your grandchildren.
-
-**Notes for Iteration:**
-- WARNING: Opening examples (books surviving centuries, technologies lasting decades) are classic Taleb Lindy examples. Laurent flagged this on Jan 30 â€” needs completely new examples
-- Concept is solid. Execution echoes Taleb too closely
-- Need original examples that feel like Laurent's voice, not Taleb's
-- Ending is strong: "What mattered to your grandparents might matter to your grandchildren."
-- Hold until we find the right angle
-
------
+---
 
 ### Maintenance Debt - "What You Don't Maintain, You Lose"
 
@@ -216,12 +141,12 @@ Creation is finite. Maintenance is forever.
 
 **Notes for Iteration:**
 - WARNING: "What You Don't See" (Jan 30) covered invisible infrastructure/maintenance territory. Too close to publish soon.
-- Space at least 2-3 weeks from Jan 30 before publishing
+- Space at least 2-3 weeks from Jan 30 before publishing - NOW READY (Feb 8 is 9 days later)
 - "Creation is finite. Maintenance is forever." is a great tagline
-- Similar spirit to "The Courage to Be Boring" â€” could acknowledge that connection
-- Strong as-is, just needs timing separation
+- Similar spirit to "The Courage to Be Boring" - could acknowledge that connection
+- Strong as-is, consider for next week
 
------
+---
 
 ### Systems vs Goals - (Title TBD)
 
@@ -248,11 +173,11 @@ Focus on what you do repeatedly, not what you want eventually.
 **Notes for Iteration:**
 - Clean and actionable, assertion ending
 - "Winners and losers often have the same goals" is the strongest line
-- WARNING: Scott Adams popularized "systems vs goals" â€” concept is well-known. Need to ensure framing feels original, not derivative
+- WARNING: Scott Adams popularized "systems vs goals" - concept is well-known. Need to ensure framing feels original, not derivative
 - Could benefit from a personal example (this daily blog practice itself?)
 - Near-ready with minor adjustments
 
------
+---
 
 ## Review Criteria
 
@@ -275,10 +200,10 @@ When deciding which banked draft to develop:
 - [ ] Check it doesn't overlap with recent posts
 - [ ] Check examples don't echo known thinkers (especially Taleb)
 
------
+---
 
-**Last Updated:** February 1, 2026
-**Total Banked Drafts:** 9 (0 high priority published, 3 ready/near-ready, 5 needs work, 1 published)
-**Ready to ship next week:** "Stop Asking" (Permission vs Permissionless), "Draw the Line" (Red Lines)
-**Needs rework (Taleb echo):** Antifragility, Lindy Effect
-**Needs timing separation:** Maintenance Debt (wait until ~Feb 15)
+**Last Updated:** February 8, 2026
+**Total Banked Drafts:** 5 active (4 published, 1 ready, 4 needs work)
+**Ready to ship next week:** Maintenance Debt, Skin in the Game (space from Jan 29)
+**Needs rework (Taleb echo):** Antifragility
+**Near-ready:** Systems vs Goals, Emergence

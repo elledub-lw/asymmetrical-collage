@@ -216,5 +216,6 @@ The RSS summary should be the most memorable/intriguing line from the post, typi
 
 ---
 
-**Last Updated:** January 17, 2026
+**Last Updated:** February 8, 2026
 **Current Styles:** 3 (Provocative, Observational, Practical)
+**Selection Pattern:** Observational style dominates (~70% of selections)

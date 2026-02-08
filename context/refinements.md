@@ -56,6 +56,122 @@ When Laurent provides his own concept or framework (e.g., large organization con
 
 ## Posts Published
 
+### February 8, 2026: "Draw the Line"
+**Selected:** Banked draft (Red Lines - Provocative)
+
+**What worked:**
+- Published from banked drafts with minor refinements
+- "Flexibility without boundaries isn't freedom. It's drift." - strong closer
+- Concrete examples of red lines (lying, work against principles, disrespect) ground the concept
+- Sovereignty theme continues from Feb 5 and Feb 7
+
+**Refinements made:**
+- Changed ending from "formlessness" to "drift" (more accessible)
+- Added more concrete examples of red lines
+- Tightened opening from "Every boundary is flexible. Every principle has exceptions. Every standard bends" to single-line versions
+
+**Key insight:** This closes a mini-arc of sovereignty posts (Stop Asking -> Stay Because You Can Leave -> Draw the Line). Together they form a framework: act without permission, maintain optionality, know your non-negotiables.
+
+---
+
+### February 7, 2026: "Stay Because You Can Leave"
+**Selected:** New draft (Observational - Foundation)
+
+**What worked:**
+- Exit strategies theme explored with fresh angle
+- "Staying because you want to is freedom. Staying because you must is prison." - powerful closer
+- Bank account example grounds abstract concept in visceral experience
+- "The paradox: people with the clearest exits often stay longest" - counterintuitive truth
+
+**Refinements made:**
+- Minor tightening throughout
+
+**Key insight:** Exit planning isn't pessimistic - it's what makes genuine commitment possible. This pairs well with "Keep the Exit Clear" (Jan 24) but takes a different angle: that one was tactical, this one is philosophical.
+
+---
+
+### February 6, 2026: "Build the Base First"
+**Selected:** New draft (Practical - Foundation)
+
+**What worked:**
+- Heinlein quote provides strong hook and authority
+- "Breadth without depth is surface-level understanding of everything" - names the risk
+- "You don't choose between them. You sequence them." - practical resolution
+- "Build the base wide. Then pick your peaks." - memorable closer
+
+**Refinements made:**
+- None - draft was ready as written
+
+**Key insight:** Specialization vs. generalization is a false dichotomy. The answer is sequencing. This connects to skill-building themes without repeating "The Skill Stack Audit" territory.
+
+---
+
+### February 5, 2026: "Stop Asking"
+**Selected:** Banked draft (Permission vs Permissionless - Provocative)
+
+**What worked:**
+- Published as-is from banked version - draft was already tight
+- "The world is permissionless. Most people still act like it isn't." - strong observation ending
+- Bitcoin/Wikipedia/internet examples are original and pattern-establishing
+- Core sovereignty theme directly aligned with blog identity
+
+**Refinements made:**
+- None - banked draft was ready
+
+**Key insight:** This is a foundational piece for the blog's identity. Permissionless action is central to sovereignty, and this post names it directly.
+
+---
+
+### February 4, 2026: "The Ratchet Effect"
+**Selected:** New draft (Observational - Foundation)
+
+**What worked:**
+- New concept: irreversible progress that locks in
+- "You can't unlearn it. You can't unsee it. You can't un-know it." - visceral examples
+- Contrast with things that DO fade (skills, advantages, momentum) adds nuance
+- "The best work creates ratchets" - actionable principle
+
+**Refinements made:**
+- Minor tightening
+
+**Key insight:** Ratchets are the mechanism behind compounding. This extends earlier posts on compounding skills and long-term thinking by identifying what makes progress permanent vs. fragile.
+
+---
+
+### February 3, 2026: "Trust Time"
+**Selected:** Reworked banked draft (Lindy Effect - Observational)
+
+**What worked:**
+- Successfully avoided Taleb echo with original examples
+- "Your grandfather's cast iron pan still works. The productivity app you bought last year doesn't." - visceral contrast
+- "1850 company vs 2020 unicorn" - concrete and relatable
+- "Ask: what has this replaced that was working fine?" - actionable question
+
+**Refinements made:**
+- Completely new examples (none from Taleb's books)
+- Opening grounded in tangible objects, not abstract ideas
+- Added practical question at end
+
+**Key insight:** The Lindy Effect is powerful but was dangerous territory due to Taleb association. Original examples (cast iron pan, old companies) made it feel like Laurent's voice, not Taleb's.
+
+---
+
+### February 2, 2026: "Constraints Build"
+**Selected:** New draft (Observational - Foundation)
+
+**What worked:**
+- "Freedom without boundaries is paralysis." - counterintuitive truth
+- Examples span multiple domains (Twitter, poetry, budgets, workday)
+- Architects/engineers/writers parallel establishes universal pattern
+- Clean, tight structure
+
+**Refinements made:**
+- Minor tightening
+
+**Key insight:** Constraints as creative fuel is well-known but the framing here is fresh. Connects to themes of discipline and structure without repeating earlier posts.
+
+---
+
 ### February 1, 2026: "Luck Has a Surface Area"
 **Selected:** Draft 2 (Observational - Foundation)
 
@@ -344,12 +460,20 @@ When Laurent provides his own concept or framework (e.g., large organization con
 
 ## Selection Patterns
 
-### Week 4 (Jan 26 â€“ Feb 1, 2026)
+### Week 5 (Feb 2 - Feb 8, 2026)
+- **New drafts:** 5 (Constraints, Trust Time rework, Ratchet, Base First, Stay/Leave)
+- **Banked drafts used:** 2 (Stop Asking, Draw the Line)
+- **Observational style:** Dominant (5 of 7)
+- **Provocative style:** 2 (both from bank)
+
+**Pattern:** Banked drafts proving their value - 2 published this week. Observational style continues to dominate new generation. Strong week for sovereignty theme (3 posts form a mini-arc).
+
+### Week 4 (Jan 26 - Feb 1, 2026)
 - **Draft 1 (Provocative):** Selected 0 times
 - **Draft 2 (Observational/Practical):** Selected 6 times
 - **Draft 3 (Practical/Banked):** Selected 1 time
 
-**Pattern:** Draft 2 is consistently the strongest. Laurent gravitates toward observational framing with concrete examples. Provocative drafts are generated but rarely selected â€” either too close to a known thinker or not grounded enough.
+**Pattern:** Draft 2 is consistently the strongest. Laurent gravitates toward observational framing with concrete examples. Provocative drafts are generated but rarely selected - either too close to a known thinker or not grounded enough.
 
 ### Week 1 (Jan 11-17, 2026)
 - Draft 2 (Philosophical) dominant selection
@@ -359,6 +483,7 @@ When Laurent provides his own concept or framework (e.g., large organization con
 - Laurent values originality over cleverness
 - Posts that name something readers feel but haven't articulated tend to land
 - Endings that aren't questions are often stronger
+- Banked drafts are valuable - allow iteration time and avoid rushed publication
 
 ---
 
@@ -471,7 +596,7 @@ When Laurent provides his own concept or framework (e.g., large organization con
 
 ---
 
-**Last Updated:** February 1, 2026
+**Last Updated:** February 8, 2026
 **System Version:** v1.3
-**Total Posts Published:** 22 consecutive days (Jan 11 â€“ Feb 1, 2026)
-**Banked Drafts:** 9 (3 ready/near-ready, 5 needs work, 1 published)
+**Total Posts Published:** 29 consecutive days (Jan 11 - Feb 8, 2026)
+**Banked Drafts:** 5 active (4 published, 1 ready, 4 needs work)

@@ -170,7 +170,6 @@ After presenting the three drafts, include:
 **From BLOG_REFINEMENTS.md:**
 
 - Multiple income streams / side hustles (aspirational without actionable path)
-- [Add others as they emerge]
 
 **Universal Avoids:**
 
@@ -181,6 +180,35 @@ After presenting the three drafts, include:
 - Topics requiring extensive background knowledge
 - Anything that feels performative vs. substantive
 - Conservative "stay small/stay safe" framing that conflicts with Laurent's expansion philosophy
+
+-----
+
+## Flagged Examples - DO NOT REUSE
+
+**Permanently blocked:**
+
+- Climbing rope elasticity / margin of safety
+  - Reason: Attempted Jan 28 and Feb 8, kept being regenerated after discard
+
+- Phone checking / social media scrolling examples
+  - Reason: Overused internet advice territory, not original
+
+- "Information diet" metaphor
+  - Reason: Tired metaphor, generic self-help language
+
+**Theme cooldowns (check before generating):**
+
+- Attention & Focus theme: Cooldown until March 1
+  - Reason: Covered 3x in January (Signal/Noise Jan 15, Cost of Switching Jan 27), "Information Diet" rejected Feb 5
+  - Examples blocked: phone checking, social media scrolling, news consumption
+
+**Similarity check formula:**
+
+A draft is too similar if: `(same concept) AND (same mechanism OR same examples)`
+
+Examples caught by this rule:
+- "Coordination Problem" = coordination costs + n(n-1)/2 formula = too similar to Jan 26
+- "Margin of Safety" = safety buffers + climbing rope = too similar to Jan 28 discard
 
 -----
 
@@ -329,13 +357,14 @@ Review banked drafts periodically:
 
 ## Reference Documents
 
+**PHILOSOPHY.md** - Core blog philosophy, what we stand for, what we are NOT, validation test
 **THEMES.md** - Master list of topics and angles to explore
 **WRITING_STYLES.md** - Three foundational writing approaches
 **BLOG_REFINEMENTS.md** - Track record of posts and learnings
 **EXEMPLAR_POSTS.md** - Favorite posts for reference and inspiration
 **BANKED_DRAFTS.md** - Strong drafts set aside for future iteration
 
-**Usage:** Always check BLOG_REFINEMENTS and THEMES before generating. Reference other documents as needed for style guidance and inspiration.
+**Usage:** Always check PHILOSOPHY, BLOG_REFINEMENTS, and THEMES before generating. Reference other documents as needed for style guidance and inspiration.
 
 -----
 
@@ -410,38 +439,41 @@ Review banked drafts periodically:
 
 -----
 
-## Week 2 Key Learnings (Jan 19-25, 2026)
+## Week 5 Key Learnings (Feb 2-8, 2026)
 
 **What Worked:**
 
-- Scott Adams principles applied during generation (not just revision) produces tighter drafts
-- Varying ending formats (assertions, directives, observations) prevents formula
-- Personal examples (climbing ropes, alpine expertise) transform bland concepts
-- Shorter, punchier titles ("Opt Out" vs "Exit the System")
-- Active voice constructions ("You have/You are" vs "X is yours")
-- Banking strong drafts for iteration rather than forcing publication
+- Banked drafts pipeline proving valuable - 2 published this week (Stop Asking, Draw the Line)
+- Successfully reworked Lindy Effect with original examples (avoided Taleb echo)
+- Sovereignty mini-arc (Stop Asking -> Stay Because You Can Leave -> Draw the Line) creates cohesion
+- New concepts (Ratchet Effect, Constraints Build) add fresh territory
+- Heinlein quote in "Build the Base First" adds authority without feeling derivative
 
 **What to Avoid:**
 
-- Conservative "stay in your circle" framing (conflicts with expansion philosophy)
-- Repetitive question endings ("What are you doing?")
-- Generic Twitter-advice tone ("Goals are overrated" style posts)
-- Passive constructions and hedging language
-- Explaining concepts in RSS summaries (intrigue, don't explain)
+- Taleb echo remains the biggest risk - always check examples, not just concepts
+- Antifragility draft still needs complete rework (examples too close to source)
+- Don't over-rely on banked drafts - new generation keeps things fresh
 
-**High-Value Concepts to Develop:**
+**High-Value Concepts Still to Develop:**
 
-- Asymmetric bets (core to blog identity - "Asymmetrical Collage")
-- Maintenance debt
-- Emergence from simple rules
-- Lindy Effect
-- Skin in the game
-- Antifragility
-- Red lines and boundaries
+- Antifragility (BANKED - needs new examples)
+- Emergence from simple rules (BANKED - needs personal example)
+- Systems vs Goals (BANKED - near-ready)
+- Maintenance debt (BANKED - ready to publish)
+- Skin in the game (BANKED - space from Jan 29)
+- Large organization convergence (Laurent's original concept - needs his framing)
 
------
+**Patterns Observed:**
 
-**Last Updated:** January 25, 2026
-**System Version:** v1.2
-**Total Posts Published:** 15 consecutive days (Jan 11-25, 2026)
-**Banked Drafts:** 7 (1 high priority)
+- Observational style dominates selections (5 of 7 this week)
+- Provocative style works best when grounded in concrete examples
+- Mini-arcs (2-3 related posts) create satisfying progression
+- Banked drafts benefit from ~1 week of iteration time
+
+---
+
+**Last Updated:** February 8, 2026
+**System Version:** v1.3
+**Total Posts Published:** 29 consecutive days (Jan 11 - Feb 8, 2026)
+**Banked Drafts:** 5 active (4 published to date)

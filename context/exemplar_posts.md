@@ -77,5 +77,7 @@ That's it. You just learned 80% of the rules of good writing. You're welcome.
 
 ---
 
-**Last Updated:** January 17, 2026
+**Last Updated:** February 8, 2026
 **Total Exemplars:** 1
+
+**Note:** Consider adding more exemplars as you find posts that nail the tone/structure you aspire to.
