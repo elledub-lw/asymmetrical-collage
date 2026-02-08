@@ -15,6 +15,8 @@ from datetime import datetime
 from pathlib import Path
 import anthropic
 import re
+import json
+import httpx
 
 
 def get_recent_posts(articles_dir: Path, count: int = 10) -> list[dict]:
@@ -89,8 +91,8 @@ def generate_ideas(recent_posts: list[dict], context_files: dict[str, str]) -> s
     # Build context from all files
     context_sections = []
 
-    # Order matters - instructions first
-    priority_order = ['instructions', 'themes', 'writing_styles', 'refinements', 'banked_drafts', 'exemplar_posts']
+    # Order matters - philosophy and instructions first
+    priority_order = ['philosophy', 'instructions', 'themes', 'writing_styles', 'refinements', 'banked_drafts', 'exemplar_posts']
 
     for key in priority_order:
         if key in context_files:
@@ -205,6 +207,88 @@ def markdown_to_html(text: str) -> str:
     return '\n'.join(html_parts)
 
 
+def parse_ideas_to_drafts(ideas_text: str) -> list[dict]:
+    """Parse Claude's response into structured drafts."""
+    drafts = []
+
+    # Split by "## Idea" headers
+    idea_pattern = r'## Idea \d+[:\s]*(.*?)(?=## Idea \d+|## My Take|$)'
+    matches = re.findall(idea_pattern, ideas_text, re.DOTALL | re.IGNORECASE)
+
+    for match in matches:
+        idea_text = match.strip()
+        if not idea_text:
+            continue
+
+        draft = {
+            "content": idea_text,
+            "title": None,
+            "summary": None,
+            "tags": [],
+            "style_type": None,
+        }
+
+        # Extract title
+        title_match = re.search(r'\*\*Title:\*\*\s*(.+?)(?:\n|$)', idea_text)
+        if title_match:
+            draft["title"] = title_match.group(1).strip()
+
+        # Extract summary
+        summary_match = re.search(r'\*\*Summary:\*\*\s*(.+?)(?:\n|$)', idea_text)
+        if summary_match:
+            draft["summary"] = summary_match.group(1).strip()
+
+        # Extract tags
+        tags_match = re.search(r'\*\*Tags:\*\*\s*(.+?)(?:\n|$)', idea_text)
+        if tags_match:
+            tags_str = tags_match.group(1).strip()
+            # Parse tags from various formats
+            tags = re.findall(r'[\w-]+', tags_str)
+            draft["tags"] = [t for t in tags if t.lower() not in ['and', 'or', 'the']]
+
+        # Extract style
+        style_match = re.search(r'\*\*Style:\*\*\s*(.+?)(?:\n|$)', idea_text)
+        if style_match:
+            draft["style_type"] = style_match.group(1).strip()
+
+        drafts.append(draft)
+
+    return drafts
+
+
+def send_to_synology(drafts: list[dict], synology_url: str, api_key: str, prompt_version: str = None) -> bool:
+    """Send drafts to Synology backend via API."""
+    try:
+        payload = {
+            "drafts": drafts,
+            "prompt_version": prompt_version,
+        }
+
+        headers = {
+            "Content-Type": "application/json",
+            "X-API-Key": api_key,
+        }
+
+        with httpx.Client(timeout=30.0) as client:
+            response = client.post(
+                f"{synology_url.rstrip('/')}/api/drafts/batch",
+                json=payload,
+                headers=headers,
+            )
+
+            if response.status_code == 200:
+                data = response.json()
+                print(f"Synology: Received batch {data.get('data', {}).get('batch_id', 'unknown')}")
+                return True
+            else:
+                print(f"Synology API error: {response.status_code} - {response.text}")
+                return False
+
+    except Exception as e:
+        print(f"Failed to send to Synology: {e}")
+        return False
+
+
 def send_email(ideas: str, recipient: str, sender: str, password: str):
     """Send the ideas via Gmail SMTP."""
     today = datetime.now().strftime("%B %d, %Y")
@@ -267,8 +351,19 @@ def main():
     gmail_address = os.environ.get("GMAIL_ADDRESS")
     gmail_password = os.environ.get("GMAIL_APP_PASSWORD")
 
-    if not all([api_key, gmail_address, gmail_password]):
-        raise ValueError("Missing required environment variables: ANTHROPIC_API_KEY, GMAIL_ADDRESS, GMAIL_APP_PASSWORD")
+    # Synology backend (optional - takes priority if configured)
+    synology_url = os.environ.get("SYNOLOGY_URL")
+    synology_api_key = os.environ.get("SYNOLOGY_API_KEY")
+
+    # Check if at least one delivery method is configured
+    has_synology = synology_url and synology_api_key
+    has_email = gmail_address and gmail_password
+
+    if not api_key:
+        raise ValueError("Missing required environment variable: ANTHROPIC_API_KEY")
+
+    if not has_synology and not has_email:
+        raise ValueError("No delivery method configured. Set either SYNOLOGY_URL/SYNOLOGY_API_KEY or GMAIL_ADDRESS/GMAIL_APP_PASSWORD")
 
     # Set up paths
     script_dir = Path(__file__).parent
@@ -288,8 +383,20 @@ def main():
     ideas = generate_ideas(recent_posts, context_files)
     print("Ideas generated successfully")
 
-    print("Sending email...")
-    send_email(ideas, gmail_address, gmail_address, gmail_password)
+    # Try Synology first, fall back to email
+    sent_to_synology = False
+    if has_synology:
+        print("Sending to Synology backend...")
+        drafts = parse_ideas_to_drafts(ideas)
+        print(f"Parsed {len(drafts)} drafts from response")
+        sent_to_synology = send_to_synology(drafts, synology_url, synology_api_key)
+
+    # Email as fallback or if Synology not configured
+    if has_email and (not has_synology or not sent_to_synology):
+        if not sent_to_synology and has_synology:
+            print("Synology failed, falling back to email...")
+        print("Sending email...")
+        send_email(ideas, gmail_address, gmail_address, gmail_password)
 
     print("Done!")
 
