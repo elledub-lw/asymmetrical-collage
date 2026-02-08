@@ -355,10 +355,6 @@ def main():
     synology_url = os.environ.get("SYNOLOGY_URL")
     synology_api_key = os.environ.get("SYNOLOGY_API_KEY")
 
-    # Debug: print what we received (masked)
-    print(f"Debug: SYNOLOGY_URL set: {bool(synology_url)}, length: {len(synology_url) if synology_url else 0}")
-    print(f"Debug: SYNOLOGY_API_KEY set: {bool(synology_api_key)}, length: {len(synology_api_key) if synology_api_key else 0}")
-
     # Check if at least one delivery method is configured
     has_synology = synology_url and synology_api_key
     has_email = gmail_address and gmail_password
