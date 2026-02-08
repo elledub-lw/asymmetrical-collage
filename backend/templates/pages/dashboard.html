@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Blog Automation{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-white mb-2">Pending Drafts</h1>
+    <p class="text-dark-muted">Review and publish AI-generated blog drafts</p>
+</div>
+
+{% if batches %}
+    {% for batch in batches %}
+    <div class="mb-8">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-dark-text">
+                Batch from {{ batch.generated_at|format_timestamp }}
+            </h2>
+            <span class="text-sm text-dark-muted">{{ batch.drafts|length }} drafts</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for draft in batch.drafts %}
+            {% include "components/draft_card.html" %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="bg-dark-card border border-dark-border rounded-lg p-12 text-center">
+        <svg class="mx-auto h-12 w-12 text-dark-muted mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <h3 class="text-xl font-medium text-white mb-2">No pending drafts</h3>
+        <p class="text-dark-muted">New drafts will appear here after the daily generation runs.</p>
+    </div>
+{% endif %}
+{% endblock %}

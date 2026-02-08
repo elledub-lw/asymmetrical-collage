@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Prompt Versions - Blog Automation{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-white mb-2">Prompt Versions</h1>
+    <p class="text-dark-muted">Manage prompt versions used for blog generation</p>
+</div>
+
+<!-- Create New Version -->
+<div class="bg-dark-card border border-dark-border rounded-lg p-6 mb-8">
+    <h2 class="text-xl font-semibold text-white mb-4">Create New Version</h2>
+
+    <form id="create-form" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-dark-muted mb-2">Version ID</label>
+                <input type="text" id="new-version" placeholder="e.g., v2.1"
+                       class="w-full px-4 py-2 bg-dark-bg border border-dark-border rounded-md text-white focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-dark-muted mb-2">Notes</label>
+                <input type="text" id="new-notes" placeholder="What changed in this version?"
+                       class="w-full px-4 py-2 bg-dark-bg border border-dark-border rounded-md text-white focus:ring-2 focus:ring-blue-500">
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-dark-muted mb-2">Instructions</label>
+            <textarea id="new-instructions" rows="6" placeholder="The main prompt instructions..."
+                      class="w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-md text-white font-mono text-sm focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-dark-muted mb-2">Context (optional)</label>
+            <textarea id="new-context" rows="3" placeholder="Additional context or examples..."
+                      class="w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-md text-white font-mono text-sm focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
+            Create Version
+        </button>
+    </form>
+</div>
+
+<!-- Existing Versions -->
+<div class="space-y-4">
+    <h2 class="text-xl font-semibold text-white">Existing Versions</h2>
+
+    {% if versions %}
+        {% for version in versions %}
+        <div class="bg-dark-card border border-dark-border rounded-lg p-6 {% if version.is_active %}ring-2 ring-green-500{% endif %}">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                        {{ version.version }}
+                        {% if version.is_active %}
+                        <span class="px-2 py-1 text-xs rounded-full bg-green-500/20 text-green-300">Active</span>
+                        {% endif %}
+                    </h3>
+                    <p class="text-sm text-dark-muted">Created: {{ version.created_at|format_timestamp }}</p>
+                </div>
+                <div class="flex gap-2">
+                    {% if not version.is_active %}
+                    <button onclick="activateVersion('{{ version.version }}')"
+                            class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors">
+                        Activate
+                    </button>
+                    <button onclick="deleteVersion('{{ version.version }}')"
+                            class="px-4 py-2 bg-red-600/20 hover:bg-red-600/40 text-red-400 text-sm rounded-md transition-colors">
+                        Delete
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if version.notes %}
+            <p class="text-dark-muted mb-4">{{ version.notes }}</p>
+            {% endif %}
+
+            <details class="group">
+                <summary class="cursor-pointer text-blue-400 hover:text-blue-300 text-sm">
+                    View instructions
+                </summary>
+                <pre class="mt-4 p-4 bg-dark-bg rounded-md text-sm text-dark-text overflow-x-auto">{{ version.instructions }}</pre>
+                {% if version.context %}
+                <pre class="mt-2 p-4 bg-dark-bg rounded-md text-sm text-dark-muted overflow-x-auto">{{ version.context }}</pre>
+                {% endif %}
+            </details>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="bg-dark-card border border-dark-border rounded-lg p-8 text-center">
+            <p class="text-dark-muted">No prompt versions created yet. Create one above to get started.</p>
+        </div>
+    {% endif %}
+</div>
+
+<div id="status-message" class="fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg hidden"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function showStatus(message, isError = false) {
+        const el = document.getElementById('status-message');
+        el.textContent = message;
+        el.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg ${isError ? 'bg-red-600' : 'bg-green-600'} text-white`;
+        el.classList.remove('hidden');
+        setTimeout(() => el.classList.add('hidden'), 3000);
+    }
+
+    document.getElementById('create-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const response = await fetch('/api/prompts/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                version: document.getElementById('new-version').value,
+                instructions: document.getElementById('new-instructions').value,
+                context: document.getElementById('new-context').value || null,
+                notes: document.getElementById('new-notes').value || null,
+            }),
+        });
+
+        if (response.ok) {
+            showStatus('Version created successfully');
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            const data = await response.json();
+            showStatus(data.detail || 'Failed to create version', true);
+        }
+    });
+
+    async function activateVersion(version) {
+        const response = await fetch(`/api/prompts/${version}/activate`, { method: 'POST' });
+        if (response.ok) {
+            showStatus('Version activated');
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showStatus('Failed to activate version', true);
+        }
+    }
+
+    async function deleteVersion(version) {
+        if (!confirm(`Delete version "${version}"?`)) return;
+
+        const response = await fetch(`/api/prompts/${version}`, { method: 'DELETE' });
+        if (response.ok) {
+            showStatus('Version deleted');
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            const data = await response.json();
+            showStatus(data.detail || 'Failed to delete version', true);
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+<div class="bg-dark-card border border-dark-border rounded-lg p-6 hover:border-blue-500 transition-colors">
+    <div class="flex justify-between items-start mb-4">
+        <h3 class="text-lg font-semibold text-white truncate flex-1 mr-4">
+            {{ draft.title or 'Untitled Draft' }}
+        </h3>
+        <span class="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-300">
+            {{ draft.status }}
+        </span>
+    </div>
+
+    {% if draft.summary %}
+    <p class="text-dark-muted text-sm mb-4 line-clamp-2">{{ draft.summary }}</p>
+    {% endif %}
+
+    {% set tags = draft.tags|parse_tags %}
+    {% if tags %}
+    <div class="flex flex-wrap gap-2 mb-4">
+        {% for tag in tags[:3] %}
+        <span class="px-2 py-1 text-xs rounded bg-dark-border text-dark-muted">{{ tag }}</span>
+        {% endfor %}
+        {% if tags|length > 3 %}
+        <span class="px-2 py-1 text-xs rounded bg-dark-border text-dark-muted">+{{ tags|length - 3 }}</span>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="flex justify-between items-center">
+        <span class="text-xs text-dark-muted">{{ draft.generated_at|format_timestamp }}</span>
+        <a href="/review/{{ draft.id }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md transition-colors">
+            Review
+        </a>
+    </div>
+</div>

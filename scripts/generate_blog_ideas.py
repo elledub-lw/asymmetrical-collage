@@ -383,18 +383,17 @@ def main():
     ideas = generate_ideas(recent_posts, context_files)
     print("Ideas generated successfully")
 
-    # Try Synology first, fall back to email
-    sent_to_synology = False
+    # Send to both backend and email for redundancy
     if has_synology:
-        print("Sending to Synology backend...")
+        print("Sending to backend...")
         drafts = parse_ideas_to_drafts(ideas)
         print(f"Parsed {len(drafts)} drafts from response")
-        sent_to_synology = send_to_synology(drafts, synology_url, synology_api_key)
+        if send_to_synology(drafts, synology_url, synology_api_key):
+            print("Backend: success")
+        else:
+            print("Backend: failed")
 
-    # Email as fallback or if Synology not configured
-    if has_email and (not has_synology or not sent_to_synology):
-        if not sent_to_synology and has_synology:
-            print("Synology failed, falling back to email...")
+    if has_email:
         print("Sending email...")
         send_email(ideas, gmail_address, gmail_address, gmail_password)
 

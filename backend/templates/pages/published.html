@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Published Posts - Blog Automation{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-white mb-2">Published Posts</h1>
+    <p class="text-dark-muted">Archive of all published blog posts</p>
+</div>
+
+<div class="bg-dark-card border border-dark-border rounded-lg overflow-hidden">
+    <table class="w-full">
+        <thead class="bg-dark-border">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Title</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Published</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Prompt Version</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Link</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-dark-border">
+            {% if posts %}
+                {% for post in posts %}
+                <tr class="hover:bg-dark-border/50">
+                    <td class="px-6 py-4">
+                        <p class="text-white font-medium">{{ post.title }}</p>
+                        <p class="text-sm text-dark-muted truncate max-w-md">{{ post.slug }}</p>
+                    </td>
+                    <td class="px-6 py-4 text-dark-text">{{ post.published_at|format_timestamp }}</td>
+                    <td class="px-6 py-4">
+                        {% if post.prompt_version %}
+                        <span class="px-2 py-1 text-xs rounded bg-dark-border text-dark-muted">{{ post.prompt_version }}</span>
+                        {% else %}
+                        <span class="text-dark-muted">-</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if post.github_url %}
+                        <a href="{{ post.github_url }}" target="_blank"
+                           class="text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                            View
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                        {% else %}
+                        <span class="text-dark-muted">-</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="px-6 py-12 text-center text-dark-muted">
+                        <svg class="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        <p>No posts published yet.</p>
+                        <p class="text-sm mt-1">Published posts will appear here.</p>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
