@@ -21,11 +21,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install anthropic
+          pip install anthropic httpx
 
       - name: Generate and send blog ideas
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Synology backend (primary)
+          SYNOLOGY_URL: ${{ secrets.SYNOLOGY_URL }}
+          SYNOLOGY_API_KEY: ${{ secrets.SYNOLOGY_API_KEY }}
+          # Email fallback
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
