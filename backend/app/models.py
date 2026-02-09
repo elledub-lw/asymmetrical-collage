@@ -23,16 +23,23 @@ class DraftUpdate(BaseModel):
     summary: Optional[str] = None
     tags: Optional[List[str]] = None
     edited_content: Optional[str] = None
+    edit_notes: Optional[str] = None
+    voice_score: Optional[int] = None  # 1-5 rating
 
 
 class Draft(DraftBase):
     id: str
     batch_id: str
-    status: str
+    status: str  # pending, edited, published, rejected, banked
     edited_content: Optional[str] = None
     generated_at: int
     published_at: Optional[int] = None
     github_commit_sha: Optional[str] = None
+    # Feedback tracking
+    rejection_reason: Optional[str] = None
+    edit_notes: Optional[str] = None
+    published_without_edits: bool = False
+    voice_score: Optional[int] = None
 
     class Config:
         from_attributes = True
@@ -102,6 +109,15 @@ class AnalyticsSummary(BaseModel):
     total_rejected: int
     overall_publish_rate: float
     by_version: List[PromptVersionStats]
+
+
+# Feedback models
+class RejectRequest(BaseModel):
+    reason: Optional[str] = None  # Why was this draft rejected?
+
+
+class BankRequest(BaseModel):
+    notes: Optional[str] = None  # Notes for saving for later
 
 
 # API response models

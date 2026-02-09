@@ -40,21 +40,48 @@
 
                 <div>
                     <label class="block text-sm font-medium text-dark-muted mb-2">Content</label>
-                    <textarea id="content" name="content" rows="20"
+                    <textarea id="content" name="content" rows="16"
                               class="w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-md text-white font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y">{{ draft.edited_content or draft.content }}</textarea>
+                </div>
+
+                <!-- Feedback Section -->
+                <div class="border-t border-dark-border pt-4 mt-4">
+                    <h3 class="text-sm font-medium text-dark-muted mb-3">Feedback (for learning)</h3>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-dark-muted mb-1">Voice Score</label>
+                            <select id="voice-score" class="w-full px-3 py-2 bg-dark-bg border border-dark-border rounded-md text-white text-sm">
+                                <option value="">Not rated</option>
+                                <option value="1">1 - Generic (anyone could write)</option>
+                                <option value="2">2 - Mostly generic</option>
+                                <option value="3">3 - Mixed</option>
+                                <option value="4">4 - Mostly personal</option>
+                                <option value="5">5 - Strong voice (distinctly Laurent)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-dark-muted mb-1">Edit Notes</label>
+                            <input type="text" id="edit-notes" placeholder="What did you change and why?"
+                                   class="w-full px-3 py-2 bg-dark-bg border border-dark-border rounded-md text-white text-sm">
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex gap-4">
-            <button onclick="saveDraft()" class="flex-1 px-6 py-3 bg-dark-border hover:bg-dark-card text-white rounded-md transition-colors">
+        <div class="flex flex-wrap gap-3">
+            <button onclick="saveDraft()" class="px-5 py-2.5 bg-dark-border hover:bg-dark-card text-white rounded-md transition-colors text-sm">
                 Save Changes
             </button>
-            <button onclick="publishDraft()" class="flex-1 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors">
-                Publish to Blog
+            <button onclick="publishDraft()" class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors text-sm">
+                Publish
             </button>
-            <button onclick="rejectDraft()" class="px-6 py-3 bg-red-600/20 hover:bg-red-600/40 text-red-400 rounded-md transition-colors">
+            <button onclick="bankDraft()" class="px-5 py-2.5 bg-amber-600/20 hover:bg-amber-600/40 text-amber-400 rounded-md transition-colors text-sm">
+                Save for Later
+            </button>
+            <button onclick="rejectDraft()" class="px-5 py-2.5 bg-red-600/20 hover:bg-red-600/40 text-red-400 rounded-md transition-colors text-sm">
                 Reject
             </button>
         </div>
@@ -95,21 +122,38 @@
         setTimeout(() => el.classList.add('hidden'), 3000);
     }
 
+    function getVoiceScore() {
+        const val = document.getElementById('voice-score').value;
+        return val ? parseInt(val) : null;
+    }
+
+    function getEditNotes() {
+        return document.getElementById('edit-notes').value || null;
+    }
+
     async function saveDraft() {
         const tags = document.getElementById('tags').value
             .split(',')
             .map(t => t.trim())
             .filter(t => t);
 
+        const payload = {
+            title: document.getElementById('title').value,
+            summary: document.getElementById('summary').value,
+            tags: tags,
+            edited_content: document.getElementById('content').value,
+        };
+
+        // Include feedback if provided
+        const voiceScore = getVoiceScore();
+        const editNotes = getEditNotes();
+        if (voiceScore) payload.voice_score = voiceScore;
+        if (editNotes) payload.edit_notes = editNotes;
+
         const response = await fetch(`/api/drafts/${draftId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                title: document.getElementById('title').value,
-                summary: document.getElementById('summary').value,
-                tags: tags,
-                edited_content: document.getElementById('content').value,
-            }),
+            body: JSON.stringify(payload),
         });
 
         if (response.ok) {
@@ -137,11 +181,35 @@
         }
     }
 
+    async function bankDraft() {
+        const notes = prompt('Notes for later (optional):');
+        if (notes === null) return; // Cancelled
+
+        // Save changes first
+        await saveDraft();
+
+        const response = await fetch(`/api/drafts/${draftId}/bank`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ notes: notes || null }),
+        });
+
+        if (response.ok) {
+            showStatus('Saved for later');
+            setTimeout(() => window.location.href = '/', 1000);
+        } else {
+            showStatus('Failed to bank draft', true);
+        }
+    }
+
     async function rejectDraft() {
-        if (!confirm('Are you sure you want to reject this draft?')) return;
+        const reason = prompt('Why are you rejecting this draft? (helps improve future generation)');
+        if (reason === null) return; // Cancelled
 
         const response = await fetch(`/api/drafts/${draftId}/reject`, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reason: reason || null }),
         });
 
         if (response.ok) {

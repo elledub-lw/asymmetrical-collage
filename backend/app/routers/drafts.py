@@ -6,7 +6,8 @@ import time
 
 from ..models import (
     Draft, DraftCreate, DraftUpdate, DraftBatch,
-    BatchSubmission, APIResponse, PublishResult
+    BatchSubmission, APIResponse, PublishResult,
+    RejectRequest, BankRequest
 )
 from .. import database as db
 from ..config import get_settings, Settings
@@ -45,6 +46,10 @@ def parse_draft_row(row: dict) -> Draft:
         generated_at=row["generated_at"],
         published_at=row.get("published_at"),
         github_commit_sha=row.get("github_commit_sha"),
+        rejection_reason=row.get("rejection_reason"),
+        edit_notes=row.get("edit_notes"),
+        published_without_edits=bool(row.get("published_without_edits", 0)),
+        voice_score=row.get("voice_score"),
     )
 
 
@@ -144,6 +149,12 @@ async def update_draft(draft_id: str, update: DraftUpdate):
         updates.append("edited_content = ?")
         params.append(update.edited_content)
         updates.append("status = 'edited'")
+    if update.edit_notes is not None:
+        updates.append("edit_notes = ?")
+        params.append(update.edit_notes)
+    if update.voice_score is not None:
+        updates.append("voice_score = ?")
+        params.append(update.voice_score)
 
     if updates:
         params.append(draft_id)
@@ -178,13 +189,16 @@ async def publish_draft(draft_id: str):
 
     if result.success:
         published_at = int(time.time())
+        # Check if published without edits (no edited_content means original was used)
+        no_edits = draft.edited_content is None or draft.edited_content == draft.content
         await db.execute(
             """
             UPDATE drafts
-            SET status = 'published', published_at = ?, github_commit_sha = ?
+            SET status = 'published', published_at = ?, github_commit_sha = ?,
+                published_without_edits = ?
             WHERE id = ?
             """,
-            (published_at, result.commit_sha, draft_id),
+            (published_at, result.commit_sha, 1 if no_edits else 0, draft_id),
         )
 
         # Also add to published_posts table
@@ -210,18 +224,35 @@ async def publish_draft(draft_id: str):
 
 
 @router.post("/{draft_id}/reject", response_model=APIResponse)
-async def reject_draft(draft_id: str):
-    """Mark a draft as rejected."""
+async def reject_draft(draft_id: str, request: RejectRequest = None):
+    """Mark a draft as rejected with optional reason."""
     row = await db.fetch_one("SELECT * FROM drafts WHERE id = ?", (draft_id,))
     if not row:
         raise HTTPException(status_code=404, detail="Draft not found")
 
+    reason = request.reason if request else None
     await db.execute(
-        "UPDATE drafts SET status = 'rejected' WHERE id = ?",
-        (draft_id,),
+        "UPDATE drafts SET status = 'rejected', rejection_reason = ? WHERE id = ?",
+        (reason, draft_id),
     )
 
     return APIResponse(success=True, message="Draft rejected")
+
+
+@router.post("/{draft_id}/bank", response_model=APIResponse)
+async def bank_draft(draft_id: str, request: BankRequest = None):
+    """Save a draft for later (bank it)."""
+    row = await db.fetch_one("SELECT * FROM drafts WHERE id = ?", (draft_id,))
+    if not row:
+        raise HTTPException(status_code=404, detail="Draft not found")
+
+    notes = request.notes if request else None
+    await db.execute(
+        "UPDATE drafts SET status = 'banked', edit_notes = COALESCE(?, edit_notes) WHERE id = ?",
+        (notes, draft_id),
+    )
+
+    return APIResponse(success=True, message="Draft saved for later")
 
 
 @router.get("/", response_model=List[Draft])

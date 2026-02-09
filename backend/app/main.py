@@ -62,8 +62,9 @@ templates.env.filters["markdown"] = lambda text: markdown.markdown(text) if text
 # Web UI Routes
 @app.get("/", response_class=HTMLResponse)
 async def dashboard(request: Request):
-    """Dashboard showing pending drafts."""
-    rows = await fetch_all(
+    """Dashboard showing pending and banked drafts."""
+    # Get pending drafts
+    pending_rows = await fetch_all(
         """
         SELECT * FROM drafts
         WHERE status = 'pending'
@@ -71,9 +72,9 @@ async def dashboard(request: Request):
         """
     )
 
-    # Group by batch
+    # Group pending by batch
     batches: dict = {}
-    for row in rows:
+    for row in pending_rows:
         batch_id = row["batch_id"]
         if batch_id not in batches:
             batches[batch_id] = {
@@ -83,9 +84,22 @@ async def dashboard(request: Request):
             }
         batches[batch_id]["drafts"].append(row)
 
+    # Get banked drafts (saved for later)
+    banked_rows = await fetch_all(
+        """
+        SELECT * FROM drafts
+        WHERE status = 'banked'
+        ORDER BY generated_at DESC
+        """
+    )
+
     return templates.TemplateResponse(
         "pages/dashboard.html",
-        {"request": request, "batches": list(batches.values())},
+        {
+            "request": request,
+            "batches": list(batches.values()),
+            "banked_drafts": banked_rows,
+        },
     )
 
 
