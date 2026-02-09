@@ -228,10 +228,17 @@ def parse_ideas_to_drafts(ideas_text: str) -> list[dict]:
             "style_type": None,
         }
 
-        # Extract title
+        # Extract title - check both formats:
+        # 1. **Title:** format
+        # 2. Quoted title at start of idea (e.g., "Natural Redundancy")
         title_match = re.search(r'\*\*Title:\*\*\s*(.+?)(?:\n|$)', idea_text)
         if title_match:
-            draft["title"] = title_match.group(1).strip()
+            draft["title"] = title_match.group(1).strip().strip('"')
+        else:
+            # Try quoted title at start
+            first_line = idea_text.split('\n')[0].strip()
+            if first_line.startswith('"') and first_line.endswith('"'):
+                draft["title"] = first_line.strip('"')
 
         # Extract summary
         summary_match = re.search(r'\*\*Summary:\*\*\s*(.+?)(?:\n|$)', idea_text)
