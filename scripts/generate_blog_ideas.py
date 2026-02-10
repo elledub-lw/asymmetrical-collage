@@ -221,42 +221,71 @@ def parse_ideas_to_drafts(ideas_text: str) -> list[dict]:
             continue
 
         draft = {
-            "content": idea_text,
+            "content": None,  # Will be set to cleaned post body
             "title": None,
             "summary": None,
             "tags": [],
             "style_type": None,
         }
 
-        # Extract title - check both formats:
+        # Extract title - check multiple formats:
         # 1. **Title:** format
         # 2. Quoted title at start of idea (e.g., "Natural Redundancy")
-        title_match = re.search(r'\*\*Title:\*\*\s*(.+?)(?:\n|$)', idea_text)
+        # 3. Title on first line without quotes
+        title_match = re.search(r'\*\*Title:\*\*\s*["\']?(.+?)["\']?\s*(?:\n|$)', idea_text)
         if title_match:
-            draft["title"] = title_match.group(1).strip().strip('"')
+            draft["title"] = title_match.group(1).strip().strip('"\'')
         else:
-            # Try quoted title at start
-            first_line = idea_text.split('\n')[0].strip()
-            if first_line.startswith('"') and first_line.endswith('"'):
-                draft["title"] = first_line.strip('"')
+            # Try quoted or unquoted title at start (first non-empty line)
+            lines = idea_text.split('\n')
+            for line in lines:
+                line = line.strip()
+                if line and not line.startswith('**'):
+                    # Remove quotes if present
+                    draft["title"] = line.strip('"\'')
+                    break
 
         # Extract summary
-        summary_match = re.search(r'\*\*Summary:\*\*\s*(.+?)(?:\n|$)', idea_text)
+        summary_match = re.search(r'\*\*Summary:\*\*\s*["\']?(.+?)["\']?\s*(?:\n|$)', idea_text)
         if summary_match:
-            draft["summary"] = summary_match.group(1).strip()
+            draft["summary"] = summary_match.group(1).strip().strip('"\'')
 
-        # Extract tags
+        # Extract tags - handle both JSON array and comma-separated formats
         tags_match = re.search(r'\*\*Tags:\*\*\s*(.+?)(?:\n|$)', idea_text)
         if tags_match:
             tags_str = tags_match.group(1).strip()
-            # Parse tags from various formats
-            tags = re.findall(r'[\w-]+', tags_str)
+            # Try JSON array format first
+            if '[' in tags_str:
+                # Extract from JSON-like format ["tag1", "tag2"]
+                tags = re.findall(r'"([\w-]+)"', tags_str)
+            else:
+                # Comma-separated or space-separated
+                tags = re.findall(r'[\w-]+', tags_str)
             draft["tags"] = [t for t in tags if t.lower() not in ['and', 'or', 'the']]
 
         # Extract style
         style_match = re.search(r'\*\*Style:\*\*\s*(.+?)(?:\n|$)', idea_text)
         if style_match:
             draft["style_type"] = style_match.group(1).strip()
+
+        # Extract post body: Hook + Core Insight + Closing only
+        hook_match = re.search(r'\*\*Hook:\*\*\s*([\s\S]*?)(?=\*\*Core Insight:\*\*|\*\*Closing:\*\*|$)', idea_text, re.IGNORECASE)
+        core_match = re.search(r'\*\*Core Insight:\*\*\s*([\s\S]*?)(?=\*\*Closing:\*\*|$)', idea_text, re.IGNORECASE)
+        closing_match = re.search(r'\*\*Closing:\*\*\s*([\s\S]*?)(?=---|$)', idea_text, re.IGNORECASE)
+
+        content_parts = []
+        if hook_match and hook_match.group(1).strip():
+            content_parts.append(hook_match.group(1).strip())
+        if core_match and core_match.group(1).strip():
+            content_parts.append(core_match.group(1).strip())
+        if closing_match and closing_match.group(1).strip():
+            content_parts.append(closing_match.group(1).strip())
+
+        if content_parts:
+            draft["content"] = '\n\n'.join(content_parts)
+        else:
+            # Fallback: use full text if sections not found
+            draft["content"] = idea_text
 
         drafts.append(draft)
 
