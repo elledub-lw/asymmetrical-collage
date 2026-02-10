@@ -39,9 +39,16 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-dark-muted mb-2">Content</label>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-sm font-medium text-dark-muted">Content</label>
+                        <button type="button" onclick="cleanContent()"
+                                class="px-3 py-1 text-xs bg-purple-600/20 hover:bg-purple-600/40 text-purple-400 rounded transition-colors">
+                            Clean Content
+                        </button>
+                    </div>
                     <textarea id="content" name="content" rows="16"
                               class="w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-md text-white font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y">{{ draft.edited_content or draft.content }}</textarea>
+                    <p class="text-xs text-dark-muted mt-1">Click "Clean Content" to extract only Hook + Core Insight + Closing</p>
                 </div>
 
                 <!-- Feedback Section -->
@@ -120,6 +127,38 @@
         el.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg ${isError ? 'bg-red-600' : 'bg-green-600'} text-white`;
         el.classList.remove('hidden');
         setTimeout(() => el.classList.add('hidden'), 3000);
+    }
+
+    function cleanContent() {
+        const content = contentEl.value;
+
+        // Extract sections using regex
+        const hookMatch = content.match(/\*\*Hook:\*\*\s*([\s\S]*?)(?=\*\*Core Insight:\*\*|\*\*Closing:\*\*|$)/i);
+        const coreMatch = content.match(/\*\*Core Insight:\*\*\s*([\s\S]*?)(?=\*\*Closing:\*\*|$)/i);
+        const closingMatch = content.match(/\*\*Closing:\*\*\s*([\s\S]*?)(?=---|$)/i);
+
+        // Build clean content from extracted sections
+        let cleanParts = [];
+
+        if (hookMatch && hookMatch[1].trim()) {
+            cleanParts.push(hookMatch[1].trim());
+        }
+        if (coreMatch && coreMatch[1].trim()) {
+            cleanParts.push(coreMatch[1].trim());
+        }
+        if (closingMatch && closingMatch[1].trim()) {
+            cleanParts.push(closingMatch[1].trim());
+        }
+
+        if (cleanParts.length > 0) {
+            // Join with double newlines for paragraph separation
+            contentEl.value = cleanParts.join('\n\n');
+            // Update preview
+            previewEl.innerHTML = marked.parse(contentEl.value);
+            showStatus('Content cleaned - only Hook, Core Insight, and Closing remain');
+        } else {
+            showStatus('Could not find Hook/Core Insight/Closing sections', true);
+        }
     }
 
     function getVoiceScore() {
