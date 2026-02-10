@@ -118,45 +118,81 @@ Example: "Aphoristic Variation - Compressed wisdom on leverage"
 
 -----
 
-### Step 4: Provide Brief Rationale
+### Step 4: Provide Critical "My Take" (Be Direct)
 
 After presenting the three drafts, include:
 
-**"My Take:"**
+**"My Take:" must explicitly flag:**
 
-- Why each draft takes its particular approach
-- How they differ from each other
-- Which one you think is strongest and why
-- Note if any are similar to recent posts (flag concerns)
+- **OPSEC violations:** "Idea X reveals custody/security details—unsafe to publish"
+- **Voice failures:** "Idea X has no personal voice—all generic examples" or "Idea X uses hypothetical scenarios instead of professional frameworks"
+- **Theme exhaustion:** "This is the Nth attempt at this theme in X days—reject"
+- **Theme clustering:** "Too close to [date] post—space 3 weeks apart"
+- **Banked draft check:** "Checked banked drafts: [list]. Today's ideas are stronger because..." OR "Banked '[name]' should be refined instead because..."
+- **Publishability:** State clearly which ideas are publishable as-is vs. need major work
+
+**Be direct. Replace hedging language:**
+
+- "might cluster too closely" → "clusters with [post]—reject or space X weeks"
+- "could be too similar" → "repeats [post] territory—use different theme"
+- "somewhat generic" → "has no authentic voice—generic productivity advice"
+- "seems strong" → "publishable as-is" or "needs [specific fix]"
 
 -----
 
 ## Quality Checks Before Presenting
 
-**Topic Variety:**
+### OPSEC/Security Check (CRITICAL - DO FIRST)
+
+- [ ] No Bitcoin custody specifics (methods, locations, backup strategies)
+- [ ] No specific climbing routes, locations, or beta
+- [ ] No home/work addresses or travel plans
+- [ ] No client/company confidential information
+- [ ] No family or personal relationship identifying details
+
+**If ANY box fails: Reject or revise, regardless of voice quality. Security overrides all other metrics.**
+
+### Theme Exhaustion Check
+
+Before generating on a theme, check:
+- [ ] Published posts on this theme (last 30 days)
+- [ ] Banked drafts on this theme
+- [ ] Previous generation attempts (even if rejected)
+
+**If theme attempted 2+ times in last 14 days: Mark exhausted, generate from different territory.**
+
+### Topic Variety
 
 - [ ] Not repeating themes from last 7 days
 - [ ] Not contradicting previous positions (unless intentional)
 - [ ] Drawing from different sections of THEMES.md
+- [ ] Theme not marked as exhausted
 
-**Style Variety:**
+### Style Variety
 
 - [ ] Three genuinely different approaches
 - [ ] Not clustering same style type
 - [ ] Appropriate variation usage (not overusing)
 - [ ] Each draft serves its topic well
 
-**Quality Standards:**
+### Voice Check
+
+- [ ] Uses professional frameworks, not hypothetical scenarios
+- [ ] No "your GPS dies" style fake personal examples
+- [ ] Draws from risk management, climbing principles, Bitcoin philosophy
+- [ ] Sounds like Laurent's thinking style
+- [ ] Doesn't attempt stories AI doesn't know
+
+### Quality Standards
 
 - [ ] Opening hooks are strong
 - [ ] One clear idea per post
 - [ ] Ending formats vary (not always questions)
 - [ ] No generic advice or platitudes
 - [ ] Grounded in reality, not aspirational fluff
-- [ ] Authentic to Laurent's voice and expertise
 - [ ] Scott Adams principles applied (active voice, short sentences, pruned words)
 
-**Philosophy Alignment:**
+### Philosophy Alignment
 
 - [ ] Doesn't contradict Laurent's worldview (e.g., avoid "stay in your circle" conservative framing)
 - [ ] Aligns with expansion/growth mindset, not defensive/protective mindset
@@ -196,11 +232,18 @@ After presenting the three drafts, include:
 - "Information diet" metaphor
   - Reason: Tired metaphor, generic self-help language
 
+- Hypothetical "your GPS dies" scenarios
+  - Reason: Fake personal examples, use professional frameworks instead
+
 **Theme cooldowns (check before generating):**
 
 - Attention & Focus theme: Cooldown until March 1
   - Reason: Covered 3x in January (Signal/Noise Jan 15, Cost of Switching Jan 27), "Information Diet" rejected Feb 5
   - Examples blocked: phone checking, social media scrolling, news consumption
+
+- Maintenance/Infrastructure theme: Cooldown until March 1
+  - Reason: Attempted 3x in 11 days (Jan 30 "What You Don't See", Feb 8 discarded, Feb 10 discarded)
+  - Pattern: System keeps regenerating this theme despite rejection
 
 **Similarity check formula:**
 
@@ -209,33 +252,43 @@ A draft is too similar if: `(same concept) AND (same mechanism OR same examples)
 Examples caught by this rule:
 - "Coordination Problem" = coordination costs + n(n-1)/2 formula = too similar to Jan 26
 - "Margin of Safety" = safety buffers + climbing rope = too similar to Jan 28 discard
+- "The Maintenance Trap" = maintenance burden + generic examples = exhausted territory
 
 -----
 
 ## Special Considerations
 
-### Risk Management Integration
+### Authentic Voice: Professional Frameworks (CRITICAL)
 
-Laurent works in risk management. This expertise should appear naturally in some posts (not forced):
+**What "personal voice" actually means:**
 
-- Threat modeling for personal life
-- Stress testing assumptions
-- Contingency planning frameworks
-- Known vs. unknown risks
-- Practical applications of professional thinking
+Personal voice = Laurent's professional expertise, mental models, and observations—NOT personal anecdotes or security-sensitive details.
 
-**Goal:** Add unique credibility without being academic or technical
+**Sources of authentic voice AI CAN use:**
 
-### Personal Expertise & Examples
+- ✅ Risk management terminology and frameworks from his work
+- ✅ Professional observations about systems and organizations
+- ✅ Mental models he applies professionally
+- ✅ General climbing wisdom (principles, not specific routes)
+- ✅ Bitcoin philosophy (the "why", not custody specifics)
+- ✅ This blog system itself (observable and documented)
+- ✅ Patterns observed without revealing specifics
 
-Laurent's actual knowledge and experience makes posts compelling:
+**What AI should NOT attempt:**
 
-- Alpine climbing (e.g., climbing rope elasticity and margin of safety)
-- Bitcoin and sovereignty
-- Risk management frameworks applied personally
-- Building and shipping (this daily blog practice itself)
+- ❌ Specific personal anecdotes AI doesn't have access to
+- ❌ Hypothetical scenarios pretending to be personal ("your GPS dies")
+- ❌ Details about custody methods, backup strategies, security practices
+- ❌ Specific climbing routes, locations, or beta
+- ❌ Home/work locations or travel plans
+- ❌ Client/company confidential information
 
-**Goal:** Mine Laurent's expertise for concrete, visceral examples that transform abstract concepts
+**Voice transformation pattern:**
+
+Instead of: "Your GPS dies on a backcountry approach" (hypothetical)
+Use: "Risk managers call it capability decay. When systems automate everything, people lose the manual skills." (professional framework)
+
+**Goal:** Sound like Laurent through professional expertise and thinking style, not through stories AI can't know or details that compromise security
 
 ### RSS Summary Strategy
 
@@ -423,19 +476,20 @@ Review banked drafts periodically:
 
 ## Critical Reminders
 
-1. **Always check recent posts first** - Avoid repetition
-1. **Label drafts clearly** - [Style Type] - [descriptor]
-1. **Provide three genuinely different options** - Topic AND style variety
-1. **Ground everything in reality** - Laurent's actual experience and expertise
-1. **One clear idea per post** - No trying to say everything at once
-1. **Quality over cleverness** - Substance beats performance
-1. **Iterate thoughtfully** - Listen to feedback, improve systematically
-1. **Apply Scott Adams principles during generation** - Don't wait for revision
-1. **Vary ending formats** - Not every post needs to end with a question
-1. **Avoid conservative framing** - Laurent's philosophy embraces strategic expansion, not staying small/safe
-1. **Mine personal expertise** - Concrete examples from Laurent's life make abstract concepts compelling
-1. **Bank strong drafts strategically** - Some concepts deserve careful iteration
-1. **Titles matter** - Shorter and punchier usually wins
+1. **OPSEC first** - Never reveal custody methods, specific routes, locations, or security practices
+2. **Professional frameworks = authentic voice** - Use risk management terminology, not hypothetical personal scenarios
+3. **Check theme exhaustion** - Track attempts, not just published posts
+4. **Be direct in "My Take"** - Flag problems explicitly, no hedging
+5. **Always check recent posts first** - Avoid repetition
+6. **Label drafts clearly** - [Style Type] - [descriptor]
+7. **Provide three genuinely different options** - Topic AND style variety
+8. **One clear idea per post** - No trying to say everything at once
+9. **Quality over cleverness** - Substance beats performance
+10. **Apply Scott Adams principles during generation** - Don't wait for revision
+11. **Vary ending formats** - Not every post needs to end with a question
+12. **Avoid conservative framing** - Laurent's philosophy embraces strategic expansion, not staying small/safe
+13. **Check banked drafts** - Mention them in "My Take", prioritize if ready
+14. **Titles matter** - Shorter and punchier usually wins
 
 -----
 
@@ -455,25 +509,32 @@ Review banked drafts periodically:
 - Antifragility draft still needs complete rework (examples too close to source)
 - Don't over-rely on banked drafts - new generation keeps things fresh
 
-**High-Value Concepts Still to Develop:**
+---
 
-- Antifragility (BANKED - needs new examples)
-- Emergence from simple rules (BANKED - needs personal example)
-- Systems vs Goals (BANKED - near-ready)
-- Maintenance debt (BANKED - ready to publish)
-- Skin in the game (BANKED - space from Jan 29)
-- Large organization convergence (Laurent's original concept - needs his framing)
+## Week 7 Key Learnings (Feb 10, 2026)
 
-**Patterns Observed:**
+**Critical Discovery: Voice Redefined**
 
-- Observational style dominates selections (5 of 7 this week)
-- Provocative style works best when grounded in concrete examples
-- Mini-arcs (2-3 related posts) create satisfying progression
-- Banked drafts benefit from ~1 week of iteration time
+Personal voice ≠ personal anecdotes. AI can't generate stories it doesn't know, and many personal details shouldn't be published (OPSEC).
+
+**What Works:**
+- Professional frameworks provide authentic voice (risk management terminology)
+- This blog system as concrete example (observable, documented)
+- Philosophy over operational details (Bitcoin "why" not custody "how")
+- Mental models and patterns observed
+
+**What Doesn't Work:**
+- Asking AI to generate stories it doesn't know → results in "your GPS dies" hypotheticals
+- Praising OPSEC violations as "authentic voice" → security details are not voice
+- Theme exhaustion without tracking attempts → Maintenance attempted 3x in 11 days
+
+**Example Transformation:**
+- Before: "Your GPS dies on a backcountry approach" (hypothetical)
+- After: "Risk managers call it capability decay" (professional framework)
 
 ---
 
-**Last Updated:** February 8, 2026
-**System Version:** v1.3
-**Total Posts Published:** 29 consecutive days (Jan 11 - Feb 8, 2026)
+**Last Updated:** February 10, 2026
+**System Version:** v1.4
+**Total Posts Published:** 31 consecutive days (Jan 11 - Feb 10, 2026)
 **Banked Drafts:** 5 active (4 published to date)
