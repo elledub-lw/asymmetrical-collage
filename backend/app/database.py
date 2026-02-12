@@ -19,16 +19,19 @@ def get_db_path() -> str:
 
 
 async def init_db():
-    """Initialize database with schema."""
+    """Initialize database with schema by running all migrations."""
     db_path = get_db_path()
     Path(db_path).parent.mkdir(parents=True, exist_ok=True)
 
     migrations_dir = Path(__file__).parent.parent / "migrations"
-    schema_file = migrations_dir / "001_initial_schema.sql"
+
+    # Get all migration files sorted by name
+    migration_files = sorted(migrations_dir.glob("*.sql"))
 
     async with aiosqlite.connect(db_path) as db:
-        with open(schema_file) as f:
-            await db.executescript(f.read())
+        for migration_file in migration_files:
+            with open(migration_file) as f:
+                await db.executescript(f.read())
         await db.commit()
 
 

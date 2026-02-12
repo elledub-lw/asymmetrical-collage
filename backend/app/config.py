@@ -13,6 +13,13 @@ class Settings(BaseSettings):
     gmail_address: str = ""
     gmail_app_password: str = ""
 
+    # Market Watch Newsletter settings
+    perplexity_api_key: str = ""
+    anthropic_api_key: str = ""
+    resend_api_key: str = ""
+    digest_to_email: str = ""
+    digest_from_email: str = ""
+
     class Config:
         env_file = ".env"
 

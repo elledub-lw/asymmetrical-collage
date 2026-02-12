@@ -1,0 +1,409 @@
+{{ define "main" }}
+<section class="newsletter-page">
+    <div class="newsletter-header">
+        <h1>Market Watch</h1>
+        <p class="newsletter-tagline">Daily intelligence digest for fintech professionals</p>
+        <p class="newsletter-description">Covering Bitcoin protocol development, open source tools, fintech industry moves, regulatory updates, privacy technology, and AI in finance.</p>
+    </div>
+
+    <div class="newsletter-controls">
+        <div class="date-navigation">
+            <button id="prev-digest" class="nav-btn" disabled>&larr; Previous</button>
+            <span id="current-date" class="current-date">Loading...</span>
+            <button id="next-digest" class="nav-btn" disabled>Next &rarr;</button>
+        </div>
+    </div>
+
+    <div id="digest-content" class="digest-content">
+        <div class="loading-state">
+            <p>Loading latest digest...</p>
+        </div>
+    </div>
+
+    <div id="digest-archive" class="digest-archive">
+        <h2>Recent Digests</h2>
+        <ul id="archive-list" class="archive-list">
+            <li>Loading archive...</li>
+        </ul>
+    </div>
+</section>
+
+<style>
+.newsletter-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.newsletter-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--accent-blue);
+}
+
+.newsletter-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.newsletter-tagline {
+    font-size: 1.1rem;
+    color: var(--accent-blue);
+    margin-bottom: 0.5rem;
+}
+
+.newsletter-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.newsletter-controls {
+    margin-bottom: 2rem;
+}
+
+.date-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.nav-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.current-date {
+    font-weight: 600;
+    min-width: 150px;
+    text-align: center;
+}
+
+.digest-content {
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.digest-content h2 {
+    color: var(--accent-blue);
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.digest-content h2:first-child {
+    margin-top: 0;
+}
+
+.digest-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.digest-content a {
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+.digest-content a:hover {
+    text-decoration: underline;
+}
+
+.digest-content strong {
+    color: var(--text-primary);
+}
+
+.loading-state,
+.error-state,
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+.error-state {
+    color: #ef4444;
+}
+
+.digest-archive {
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.digest-archive h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.archive-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.archive-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.archive-list li:last-child {
+    border-bottom: none;
+}
+
+.archive-list a {
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.archive-list a:hover {
+    color: var(--accent-blue);
+}
+
+.archive-list .status {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: var(--bg-body);
+}
+
+.archive-list .status.draft {
+    color: #f59e0b;
+}
+
+.archive-list .status.published {
+    color: #10b981;
+}
+
+@media (max-width: 600px) {
+    .newsletter-header h1 {
+        font-size: 2rem;
+    }
+
+    .digest-content {
+        padding: 1.5rem;
+    }
+
+    .date-navigation {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+</style>
+
+<script>
+(function() {
+    const API_BASE = '{{ .Site.Params.api_url | default "https://blog-api.asymmetrical-collage.com" }}';
+    let digests = [];
+    let currentIndex = 0;
+
+    const contentEl = document.getElementById('digest-content');
+    const dateEl = document.getElementById('current-date');
+    const prevBtn = document.getElementById('prev-digest');
+    const nextBtn = document.getElementById('next-digest');
+    const archiveList = document.getElementById('archive-list');
+
+    // Simple markdown to HTML converter
+    function parseMarkdown(md) {
+        if (!md) return '';
+        let html = md;
+
+        // Headers
+        html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+        html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+        html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+        // Bold
+        html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+        // Italic
+        html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+        // Links
+        html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+        // Paragraphs
+        html = html.split(/\n\n+/).map(p => {
+            if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<ol')) return p;
+            return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
+        }).join('\n');
+
+        return html;
+    }
+
+    function formatDate(dateIso) {
+        const date = new Date(dateIso + 'T00:00:00');
+        return date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
+
+    function showLoading() {
+        contentEl.innerHTML = '<div class="loading-state"><p>Loading digest...</p></div>';
+    }
+
+    function showError(message) {
+        contentEl.innerHTML = '<div class="error-state"><p>' + message + '</p></div>';
+    }
+
+    function showEmpty() {
+        contentEl.innerHTML = '<div class="empty-state"><p>No digest available for this date.</p></div>';
+    }
+
+    function renderDigest(digest) {
+        if (!digest || !digest.content) {
+            showEmpty();
+            return;
+        }
+
+        dateEl.textContent = formatDate(digest.date_iso);
+        contentEl.innerHTML = parseMarkdown(digest.content);
+    }
+
+    function updateNavigation() {
+        prevBtn.disabled = currentIndex >= digests.length - 1;
+        nextBtn.disabled = currentIndex <= 0;
+    }
+
+    function renderArchive() {
+        if (digests.length === 0) {
+            archiveList.innerHTML = '<li>No digests available yet.</li>';
+            return;
+        }
+
+        archiveList.innerHTML = digests.slice(0, 10).map((d, idx) => {
+            const statusClass = d.status === 'published' ? 'published' : 'draft';
+            return '<li><a href="#" data-index="' + idx + '">' +
+                '<span>' + formatDate(d.date_iso) + '</span>' +
+                '<span class="status ' + statusClass + '">' + d.status + '</span>' +
+                '</a></li>';
+        }).join('');
+
+        // Add click handlers
+        archiveList.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentIndex = parseInt(this.dataset.index);
+                loadDigestByIndex(currentIndex);
+            });
+        });
+    }
+
+    async function loadDigestList() {
+        try {
+            const response = await fetch(API_BASE + '/api/digest/list?limit=30');
+            if (!response.ok) throw new Error('Failed to load digest list');
+            digests = await response.json();
+            renderArchive();
+            return digests;
+        } catch (err) {
+            console.error('Error loading digest list:', err);
+            archiveList.innerHTML = '<li>Failed to load archive.</li>';
+            return [];
+        }
+    }
+
+    async function loadDigestByIndex(index) {
+        if (index < 0 || index >= digests.length) return;
+
+        currentIndex = index;
+        updateNavigation();
+        showLoading();
+
+        const dateIso = digests[index].date_iso;
+
+        try {
+            const response = await fetch(API_BASE + '/api/digest/date/' + dateIso);
+            if (!response.ok) {
+                if (response.status === 404) {
+                    showEmpty();
+                } else {
+                    throw new Error('Failed to load digest');
+                }
+                return;
+            }
+            const digest = await response.json();
+            renderDigest(digest);
+        } catch (err) {
+            console.error('Error loading digest:', err);
+            showError('Failed to load digest. Please try again later.');
+        }
+    }
+
+    async function loadLatest() {
+        showLoading();
+
+        try {
+            const response = await fetch(API_BASE + '/api/digest/latest');
+            if (!response.ok) {
+                if (response.status === 404) {
+                    showEmpty();
+                    dateEl.textContent = 'No digests yet';
+                } else {
+                    throw new Error('Failed to load latest digest');
+                }
+                return;
+            }
+            const digest = await response.json();
+            renderDigest(digest);
+        } catch (err) {
+            console.error('Error loading latest digest:', err);
+            showError('Failed to load digest. Please try again later.');
+            dateEl.textContent = 'Error';
+        }
+    }
+
+    // Event listeners
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex < digests.length - 1) {
+            loadDigestByIndex(currentIndex + 1);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            loadDigestByIndex(currentIndex - 1);
+        }
+    });
+
+    // Initialize
+    async function init() {
+        await loadDigestList();
+        await loadLatest();
+        updateNavigation();
+    }
+
+    init();
+})();
+</script>
+{{ end }}

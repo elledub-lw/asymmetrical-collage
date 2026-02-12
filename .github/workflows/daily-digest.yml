@@ -1,0 +1,60 @@
+name: Daily Market Watch Digest
+
+on:
+  schedule:
+    # 17:00 UTC = 18:00 Paris (CET) / 19:00 Paris (CEST)
+    - cron: '0 17 * * 1-5'  # Mon-Fri only
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  trigger-digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger digest generation
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ secrets.SYNOLOGY_URL }}/api/digest/generate" \
+            -H "X-API-Key: ${{ secrets.SYNOLOGY_API_KEY }}" \
+            -H "Content-Type: application/json")
+
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | sed '$d')
+
+          echo "Response: $body"
+          echo "HTTP Code: $http_code"
+
+          if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+            echo "Digest generation triggered successfully"
+            status=$(echo "$body" | jq -r '.status // "unknown"')
+            echo "Status: $status"
+
+            if [ "$status" = "failed" ]; then
+              echo "Digest generation failed"
+              echo "$body" | jq -r '.error // "No error message"'
+              exit 1
+            fi
+          elif [ "$http_code" = "409" ]; then
+            echo "Digest generation already in progress"
+          else
+            echo "Failed to trigger digest generation"
+            exit 1
+          fi
+
+      - name: Check digest status
+        if: success()
+        run: |
+          # Wait a moment for generation to complete
+          sleep 10
+
+          response=$(curl -s -w "\n%{http_code}" \
+            "${{ secrets.SYNOLOGY_URL }}/api/digest/status")
+
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | sed '$d')
+
+          echo "Status check response: $body"
+
+          if [ "$http_code" = "200" ]; then
+            echo "$body" | jq .
+          fi

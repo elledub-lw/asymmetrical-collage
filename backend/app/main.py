@@ -10,7 +10,7 @@ import markdown
 import json
 
 from .database import init_db, fetch_all, fetch_one
-from .routers import drafts, prompts, analytics
+from .routers import drafts, prompts, analytics, digest
 
 
 @asynccontextmanager
@@ -33,6 +33,7 @@ templates = Jinja2Templates(directory=templates_path)
 app.include_router(drafts.router)
 app.include_router(prompts.router)
 app.include_router(analytics.router)
+app.include_router(digest.router)
 
 
 def parse_tags(tags_str: str | None) -> list[str]:
