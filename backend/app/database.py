@@ -57,7 +57,17 @@ async def init_db():
 
 @asynccontextmanager
 async def get_db() -> AsyncGenerator[aiosqlite.Connection, None]:
-    """Get database connection."""
+    """Get database connection as context manager."""
+    db = await aiosqlite.connect(get_db_path())
+    db.row_factory = aiosqlite.Row
+    try:
+        yield db
+    finally:
+        await db.close()
+
+
+async def get_db_dependency() -> AsyncGenerator[aiosqlite.Connection, None]:
+    """Get database connection as FastAPI dependency."""
     db = await aiosqlite.connect(get_db_path())
     db.row_factory = aiosqlite.Row
     try:

@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 from ..config import get_settings
-from ..database import get_db
+from ..database import get_db_dependency
 
 settings = get_settings()
 from ..digest.generator import (
@@ -118,7 +118,7 @@ async def release_job_lock(db, status: str):
 @router.post("/generate", response_model=GenerateResponse)
 async def trigger_generate(
     _: str = Depends(verify_api_key),
-    db=Depends(get_db),
+    db=Depends(get_db_dependency),
 ):
     """
     Trigger digest generation for today.
@@ -158,7 +158,7 @@ async def trigger_generate(
 
 
 @router.get("/today", response_model=Optional[DigestResponse])
-async def get_today_digest(db=Depends(get_db)):
+async def get_today_digest(db=Depends(get_db_dependency)):
     """Get today's digest if it exists."""
     date_iso = get_today_iso()
     digest = await get_digest_by_date(db, date_iso)
@@ -170,7 +170,7 @@ async def get_today_digest(db=Depends(get_db)):
 
 
 @router.get("/latest", response_model=Optional[DigestResponse])
-async def get_latest(db=Depends(get_db)):
+async def get_latest(db=Depends(get_db_dependency)):
     """Get the most recent digest."""
     digest = await get_latest_digest(db)
 
@@ -181,7 +181,7 @@ async def get_latest(db=Depends(get_db)):
 
 
 @router.get("/date/{date_iso}", response_model=DigestResponse)
-async def get_by_date(date_iso: str, db=Depends(get_db)):
+async def get_by_date(date_iso: str, db=Depends(get_db_dependency)):
     """Get digest by date (YYYY-MM-DD format)."""
     digest = await get_digest_by_date(db, date_iso)
 
@@ -195,14 +195,14 @@ async def get_by_date(date_iso: str, db=Depends(get_db)):
 
 
 @router.get("/list", response_model=list[DigestSummary])
-async def list_all(limit: int = 30, db=Depends(get_db)):
+async def list_all(limit: int = 30, db=Depends(get_db_dependency)):
     """List recent digests."""
     digests = await list_digests(db, limit)
     return [DigestSummary(**d) for d in digests]
 
 
 @router.get("/status")
-async def get_status(db=Depends(get_db)):
+async def get_status(db=Depends(get_db_dependency)):
     """Get the current status of digest generation."""
     # Get job state
     result = await db.execute(
