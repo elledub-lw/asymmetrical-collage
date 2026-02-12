@@ -16,6 +16,11 @@ services:
       - DATABASE_URL=/data/blog.db
       - GMAIL_ADDRESS=${GMAIL_ADDRESS:-}
       - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD:-}
+      - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - DIGEST_TO_EMAIL=${DIGEST_TO_EMAIL:-}
+      - DIGEST_FROM_EMAIL=${DIGEST_FROM_EMAIL:-}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
