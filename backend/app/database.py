@@ -19,7 +19,7 @@ def get_db_path() -> str:
 
 
 async def init_db():
-    """Initialize database with schema by running all migrations."""
+    """Initialize database with schema by running only new migrations."""
     db_path = get_db_path()
     Path(db_path).parent.mkdir(parents=True, exist_ok=True)
 
@@ -29,10 +29,30 @@ async def init_db():
     migration_files = sorted(migrations_dir.glob("*.sql"))
 
     async with aiosqlite.connect(db_path) as db:
-        for migration_file in migration_files:
-            with open(migration_file) as f:
-                await db.executescript(f.read())
+        # Create migrations tracking table
+        await db.execute("""
+            CREATE TABLE IF NOT EXISTS _migrations (
+                name TEXT PRIMARY KEY,
+                applied_at INTEGER NOT NULL
+            )
+        """)
         await db.commit()
+
+        # Get already applied migrations
+        cursor = await db.execute("SELECT name FROM _migrations")
+        applied = {row[0] for row in await cursor.fetchall()}
+
+        # Run only new migrations
+        for migration_file in migration_files:
+            if migration_file.name not in applied:
+                print(f"Applying migration: {migration_file.name}")
+                with open(migration_file) as f:
+                    await db.executescript(f.read())
+                await db.execute(
+                    "INSERT INTO _migrations (name, applied_at) VALUES (?, ?)",
+                    (migration_file.name, int(__import__('time').time()))
+                )
+                await db.commit()
 
 
 @asynccontextmanager
