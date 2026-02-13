@@ -10,7 +10,7 @@ canonifyURLs = true
 # Parameters
 [params]
     description = "Riding the waves of change through financial sovereignty, privacy, and security analysis"
-    api_url = "https://blog-api.asymmetrical-collage.com"
+    api_url = "http://65.21.106.67:8080"
 
   [params.social]
         twitter = "https://twitter.com/asymmetricalc"
