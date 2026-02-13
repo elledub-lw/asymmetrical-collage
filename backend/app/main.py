@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from pathlib import Path
 import markdown
@@ -20,6 +21,19 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Blog Automation Backend", lifespan=lifespan)
+
+# CORS middleware for newsletter frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:1313",
+        "https://www.asymmetricalcollage.com",
+        "https://asymmetricalcollage.com",
+    ],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 # Mount static files
 static_path = Path(__file__).parent.parent / "static"
