@@ -36,7 +36,7 @@
             <p class="article-excerpt">{{ .Summary }}</p>
             <a href="{{ .RelPermalink }}" class="read-more">Read Full Article →</a>
         </div>
-        <div class="article-image"></div>
+        <div class="article-image"{{ if .Params.image }} style="background-image: url('{{ .Params.image }}')"{{ end }}></div>
     </article>
     {{ end }}
 

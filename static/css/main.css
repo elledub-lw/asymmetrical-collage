@@ -480,6 +480,19 @@ nav {
     gap: 0.5rem;
 }
 
+.post-image {
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.post-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
 .post-content {
     background-color: white;
     padding: 2rem;
