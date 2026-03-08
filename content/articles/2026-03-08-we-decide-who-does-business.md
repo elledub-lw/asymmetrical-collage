@@ -4,7 +4,7 @@ date: 2026-03-08
 draft: false
 tags: ["Sovereignty", "Bitcoin", "Regulation", "Privacy"]
 summary: "The permissioned economy doesn't announce itself as control. It announces itself as standards, and requests your compliance."
-image: "static/images/squealer-lei.png"
+image: "/images/squealer-lei.png"
 ---
 
 A new hoop was dropped on my path this morning. The routine KYB update from a crypto exchange added a new requirement. Obtain a Legal Entity Identifier: apply through an accredited broker, submit the data, pay the fee.
