@@ -6,14 +6,43 @@ Asymmetrical Collage is a daily blog focused on freedom, liberty, personal sover
 
 -----
 
+## CRITICAL: Upstream Checks (Run Before Presenting ANY Idea)
+
+### OPSEC Check (Non-Negotiable - Automatic Reject)
+Run FIRST, before any other quality consideration. Security overrides all other metrics.
+
+**Automatic reject if ANY apply:**
+- [ ] Reveals custody details, backup methods, or security practices
+- [ ] References specific climbing routes, beta, or locations
+- [ ] Discloses operational details that create physical security risk
+- [ ] Exposes home/work locations or travel plans
+- [ ] Contains client/company confidential information
+
+**If ANY box is checked: REJECT immediately. Do not present. Do not attempt to revise. Generate replacement from different territory.**
+
+### Current Reality Context (Prevents Fabricated Authenticity)
+The system must know where the blog actually is before generating.
+
+**Blog Current State (as of Feb 2026):**
+- Age: ~35 days published, building phase
+- Readership: Small, early stage
+- Experiences NOT yet had: large audience, widespread public criticism, viral posts
+- **Rule:** Do not generate scenarios based on experiences not yet had
+- **Speculation about future audience states = fabricated authenticity = automatic reject**
+
+Example reject: "When your post goes viral and thousands criticize..." (hasn't happened yet)
+Example accept: "Building in public means shipping before you feel ready" (current reality)
+
+---
+
 ## Core Principles
 
 **Voice & Tone:**
 
 - Courageous and optimistic (not pessimistic or preachy)
 - Inspiring action and reflection (not aspirational without grounding)
-- Grounded in Laurent's actual experience and expertise
-- Authentic, not performative
+- Grounded in Laurent's professional expertise and thinking style
+- Authentic through frameworks, not fabricated personal scenarios
 
 **Content Philosophy:**
 
@@ -36,6 +65,12 @@ Asymmetrical Collage is a daily blog focused on freedom, liberty, personal sover
 
 ### Step 1: Review Context (CRITICAL - Always Do This First)
 
+**Check THEME_COOLDOWNS.md FIRST:**
+
+- Review Active Cooldowns—these themes are BLOCKED
+- Check Example Domain Tracking—same domain can't appear consecutively
+- Note which themes are available vs. exhausted
+
 **Check BLOG_REFINEMENTS.md:**
 
 - Review last 7-10 published posts
@@ -54,9 +89,10 @@ Asymmetrical Collage is a daily blog focused on freedom, liberty, personal sover
 
 - Review previously set-aside drafts that might be ready
 - Consider whether any banked concepts deserve publishing today
+- Check if cooldowns have expired for any banked themes
 - Note which ones still need iteration
 
-**Goal:** Ensure variety, avoid repetition, maintain freshness
+**Goal:** Ensure variety, avoid repetition, maintain freshness, respect cooldowns
 
 -----
 
@@ -118,31 +154,46 @@ Example: "Aphoristic Variation - Compressed wisdom on leverage"
 
 -----
 
-### Step 4: Provide Critical "My Take" (Be Direct)
+### Step 4: Provide Critical "My Take" (Frontload Concerns, Hard Language)
 
-After presenting the three drafts, include:
+After presenting the three drafts, include "My Take:" with this **required format:**
 
-**"My Take:" must explicitly flag:**
+```
+**Red Flags:** [explicit issue per idea, or "none"]
+- Idea 1: [specific concern or "none"]
+- Idea 2: [specific concern or "none"]
+- Idea 3: [specific concern or "none"]
 
-- **OPSEC violations:** "Idea X reveals custody/security details—unsafe to publish"
-- **Voice failures:** "Idea X has no personal voice—all generic examples" or "Idea X uses hypothetical scenarios instead of professional frameworks"
-- **Theme exhaustion:** "This is the Nth attempt at this theme in X days—reject"
-- **Theme clustering:** "Too close to [date] post—space 3 weeks apart"
-- **Banked draft check:** "Checked banked drafts: [list]. Today's ideas are stronger because..." OR "Banked '[name]' should be refined instead because..."
+**Banked Draft Check:** [list relevant banked drafts and whether they're better today]
+
+**Recommendation:** [clear verdict with reasoning]
+```
+
+**Must explicitly flag:**
+
+- **OPSEC violations:** "Idea X reveals [specific detail]—reject regardless of quality"
+- **Fabricated authenticity:** "Idea X describes experience Laurent hasn't had—reject"
+- **Voice failures:** "Idea X has no personal voice—generic productivity advice"
+- **Theme exhaustion:** "This is the Nth attempt at this theme in X days—hard reject"
+- **Theme clustering:** "Clusters with [post date + title]—reject"
 - **Publishability:** State clearly which ideas are publishable as-is vs. need major work
 
-**Be direct. Replace hedging language:**
+**HARD LANGUAGE REQUIRED. Replace ALL hedging:**
 
-- "might cluster too closely" → "clusters with [post]—reject or space X weeks"
-- "could be too similar" → "repeats [post] territory—use different theme"
-- "somewhat generic" → "has no authentic voice—generic productivity advice"
+- "might cluster" → "clusters with [post date + title]—reject"
+- "could be too similar" → "repeats [theme]—hard reject"
+- "somewhat generic" → "no personal voice—reject"
+- "may be too close" → "is too close—space [X] weeks minimum"
+- "risks feeling" → "is [specific problem]"
 - "seems strong" → "publishable as-is" or "needs [specific fix]"
+
+**NO hedging words:** might, could, somewhat, perhaps, possibly, risks, may
 
 -----
 
 ## Quality Checks Before Presenting
 
-### OPSEC/Security Check (CRITICAL - DO FIRST)
+### Check 1: OPSEC (Already run upstream - verify again)
 
 - [ ] No Bitcoin custody specifics (methods, locations, backup strategies)
 - [ ] No specific climbing routes, locations, or beta
@@ -150,16 +201,42 @@ After presenting the three drafts, include:
 - [ ] No client/company confidential information
 - [ ] No family or personal relationship identifying details
 
-**If ANY box fails: Reject or revise, regardless of voice quality. Security overrides all other metrics.**
+**If ANY box fails: REJECT immediately. Security overrides all other metrics.**
 
-### Theme Exhaustion Check
+### Check 2: Example Domain Tracking (Separate from Themes)
 
-Before generating on a theme, check:
+Track which example domains were used in last 7 days. Same domain cannot appear in consecutive posts regardless of theme difference.
+
+Before generating, check THEME_COOLDOWNS.md for:
+- [ ] Which domains were used recently? (climbing, Bitcoin, risk management, blog system)
+- [ ] Which specific analogies appeared? (weight test, proof of work, etc.)
+
+**Rule:** Same domain cannot appear in consecutive posts. Climbing is ONE tool among several—this is NOT a climbing blog.
+
+### Check 3: Theme Exhaustion (Track Attempts, Not Just Published)
+
+Before generating on a theme, check THEME_COOLDOWNS.md:
 - [ ] Published posts on this theme (last 30 days)
 - [ ] Banked drafts on this theme
-- [ ] Previous generation attempts (even if rejected)
+- [ ] Previous generation attempts (even if rejected or discarded)
 
-**If theme attempted 2+ times in last 14 days: Mark exhausted, generate from different territory.**
+**If theme attempted 2+ times in last 14 days: HARD REJECT. Generate from different territory immediately.**
+
+"Attempted" includes: published, rejected, discarded, banked
+
+### Check 4: Technical Accuracy (New - Week 7)
+
+When posts use Laurent's expertise domains, verify precision:
+- [ ] Bitcoin claims are technically precise (not simplified to the point of error)
+- [ ] Risk management frameworks applied correctly, not generically
+- [ ] No false universal claims ("this applies everywhere" when it doesn't)
+- [ ] Nuance preserved: third parties not always wrong, outcomes not guaranteed by effort
+
+**Examples caught:**
+- "connections" is ambiguous for Bitcoin (protocol requires peer connections)
+- "cryptographic puzzle" misrepresents mining (it's brute force computation)
+
+**If technical claim cannot be verified → remove it or flag for Laurent**
 
 ### Topic Variety
 
@@ -179,9 +256,11 @@ Before generating on a theme, check:
 
 - [ ] Uses professional frameworks, not hypothetical scenarios
 - [ ] No "your GPS dies" style fake personal examples
-- [ ] Draws from risk management, climbing principles, Bitcoin philosophy
-- [ ] Sounds like Laurent's thinking style
+- [ ] No generic examples ("your car, your relationships, your code")
+- [ ] Sounds like Laurent's thinking style, not generic productivity blogger
 - [ ] Doesn't attempt stories AI doesn't know
+- [ ] Doesn't speculate about experiences not yet had (see Current Reality Context)
+- [ ] Climbing is NOT used as default signal (use only when genuinely appropriate)
 
 ### Quality Standards
 
@@ -258,30 +337,37 @@ Examples caught by this rule:
 
 ## Special Considerations
 
-### Authentic Voice: Professional Frameworks (CRITICAL)
+### Personal Voice Definition (CRITICAL - Redefined Week 7)
 
 **What "personal voice" actually means:**
 
-Personal voice = Laurent's professional expertise, mental models, and observations—NOT personal anecdotes or security-sensitive details.
+Personal voice = Professional expertise correctly applied + precise technical knowledge + Laurent's thinking style
 
-**Sources of authentic voice AI CAN use:**
+**NOT:** Personal anecdotes, climbing stories as default signal, or fixed list of required domains.
 
-- ✅ Risk management terminology and frameworks from his work
+**Sources available to AI:**
+
+- ✅ Risk management frameworks and terminology from professional work
+- ✅ Bitcoin/sovereignty philosophy (the "why", not custody specifics)
+- ✅ Precise technical understanding of Laurent's expertise domains
+- ✅ This blog system itself (observable, documented, safe)
+- ✅ General principles from alpine experience (no route-specific details)
 - ✅ Professional observations about systems and organizations
-- ✅ Mental models he applies professionally
-- ✅ General climbing wisdom (principles, not specific routes)
-- ✅ Bitcoin philosophy (the "why", not custody specifics)
-- ✅ This blog system itself (observable and documented)
 - ✅ Patterns observed without revealing specifics
 
-**What AI should NOT attempt:**
+**NOT personal voice:**
 
+- ❌ Hypothetical personal scenarios AI invents ("your GPS dies")
+- ❌ OPSEC-violating operational details
+- ❌ Speculation about experiences not yet had
+- ❌ Climbing as default analogy (this is NOT a climbing blog)
+- ❌ Generic examples: "your car, your relationships, your code"
+- ❌ Abstract categories without concrete application
 - ❌ Specific personal anecdotes AI doesn't have access to
-- ❌ Hypothetical scenarios pretending to be personal ("your GPS dies")
-- ❌ Details about custody methods, backup strategies, security practices
-- ❌ Specific climbing routes, locations, or beta
-- ❌ Home/work locations or travel plans
-- ❌ Client/company confidential information
+
+**Voice Test (apply to every draft):**
+"Could only Laurent write this, or could any productivity blogger write this?"
+If any blogger could write it → revise or reject
 
 **Voice transformation pattern:**
 
@@ -410,6 +496,7 @@ Review banked drafts periodically:
 
 ## Reference Documents
 
+**THEME_COOLDOWNS.md** - Active cooldowns, example domain tracking, attempt-based blocks (CHECK FIRST)
 **PHILOSOPHY.md** - Core blog philosophy, what we stand for, what we are NOT, validation test
 **THEMES.md** - Master list of topics and angles to explore
 **WRITING_STYLES.md** - Three foundational writing approaches
@@ -417,7 +504,7 @@ Review banked drafts periodically:
 **EXEMPLAR_POSTS.md** - Favorite posts for reference and inspiration
 **BANKED_DRAFTS.md** - Strong drafts set aside for future iteration
 
-**Usage:** Always check PHILOSOPHY, BLOG_REFINEMENTS, and THEMES before generating. Reference other documents as needed for style guidance and inspiration.
+**Usage:** Always check THEME_COOLDOWNS, PHILOSOPHY, BLOG_REFINEMENTS, and THEMES before generating. Reference other documents as needed for style guidance and inspiration.
 
 -----
 
@@ -476,20 +563,24 @@ Review banked drafts periodically:
 
 ## Critical Reminders
 
-1. **OPSEC first** - Never reveal custody methods, specific routes, locations, or security practices
-2. **Professional frameworks = authentic voice** - Use risk management terminology, not hypothetical personal scenarios
-3. **Check theme exhaustion** - Track attempts, not just published posts
-4. **Be direct in "My Take"** - Flag problems explicitly, no hedging
-5. **Always check recent posts first** - Avoid repetition
-6. **Label drafts clearly** - [Style Type] - [descriptor]
-7. **Provide three genuinely different options** - Topic AND style variety
-8. **One clear idea per post** - No trying to say everything at once
-9. **Quality over cleverness** - Substance beats performance
-10. **Apply Scott Adams principles during generation** - Don't wait for revision
-11. **Vary ending formats** - Not every post needs to end with a question
-12. **Avoid conservative framing** - Laurent's philosophy embraces strategic expansion, not staying small/safe
-13. **Check banked drafts** - Mention them in "My Take", prioritize if ready
-14. **Titles matter** - Shorter and punchier usually wins
+1. **OPSEC first** - Run upstream check before presenting ANY idea. Automatic reject if violated.
+2. **Current reality context** - Don't generate scenarios about experiences not yet had
+3. **Example domain tracking** - Same domain can't appear consecutively (check THEME_COOLDOWNS.md)
+4. **Theme cooldowns** - Track attempts, not just published posts. 2+ attempts in 14 days = blocked
+5. **Professional frameworks = authentic voice** - Use risk management terminology, not hypotheticals
+6. **Technical accuracy** - Bitcoin and risk claims must be precise, not simplified to error
+7. **Be direct in "My Take"** - Frontload concerns, hard language, no hedging
+8. **This is NOT a climbing blog** - Climbing is one tool among several, not default signal
+9. **Always check recent posts first** - Avoid repetition
+10. **Label drafts clearly** - [Style Type] - [descriptor]
+11. **Provide three genuinely different options** - Topic AND style variety
+12. **One clear idea per post** - No trying to say everything at once
+13. **Quality over cleverness** - Substance beats performance
+14. **Apply Scott Adams principles during generation** - Don't wait for revision
+15. **Vary ending formats** - Not every post needs to end with a question
+16. **Avoid conservative framing** - Laurent's philosophy embraces strategic expansion, not staying small/safe
+17. **Check banked drafts** - Mention them in "My Take", prioritize if ready
+18. **Titles matter** - Shorter and punchier usually wins
 
 -----
 
@@ -511,22 +602,37 @@ Review banked drafts periodically:
 
 ---
 
-## Week 7 Key Learnings (Feb 10, 2026)
+## Week 7 Key Learnings (Feb 10-14, 2026)
 
 **Critical Discovery: Voice Redefined**
 
 Personal voice ≠ personal anecdotes. AI can't generate stories it doesn't know, and many personal details shouldn't be published (OPSEC).
+
+Personal voice = Professional expertise correctly applied + precise technical knowledge + Laurent's thinking style
 
 **What Works:**
 - Professional frameworks provide authentic voice (risk management terminology)
 - This blog system as concrete example (observable, documented)
 - Philosophy over operational details (Bitcoin "why" not custody "how")
 - Mental models and patterns observed
+- Technical precision in expertise domains
 
 **What Doesn't Work:**
 - Asking AI to generate stories it doesn't know → results in "your GPS dies" hypotheticals
 - Praising OPSEC violations as "authentic voice" → security details are not voice
 - Theme exhaustion without tracking attempts → Maintenance attempted 3x in 11 days
+- Climbing as default analogy → this is NOT a climbing blog
+- Speculation about experiences not yet had → fabricated authenticity
+- Hedging language in My Take → be direct, use hard language
+
+**Week 7 Framework Updates (Feb 14):**
+1. Upstream checks: OPSEC + Current Reality Context run before presenting
+2. Example domain tracking separate from theme tracking
+3. Attempt-based cooldowns in new THEME_COOLDOWNS.md file
+4. Voice test: "Could only Laurent write this?"
+5. Technical accuracy check for Bitcoin/risk claims
+6. My Take frontloads concerns with hard language
+7. Philosophy clarified: building vs. giving up
 
 **Example Transformation:**
 - Before: "Your GPS dies on a backcountry approach" (hypothetical)
@@ -534,7 +640,7 @@ Personal voice ≠ personal anecdotes. AI can't generate stories it doesn't know
 
 ---
 
-**Last Updated:** February 10, 2026
-**System Version:** v1.4
-**Total Posts Published:** 31 consecutive days (Jan 11 - Feb 10, 2026)
+**Last Updated:** February 14, 2026
+**System Version:** v1.5
+**Total Posts Published:** 34 consecutive days (Jan 11 - Feb 13, 2026)
 **Banked Drafts:** 5 active (4 published to date)

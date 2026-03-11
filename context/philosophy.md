@@ -8,6 +8,13 @@
 - Optionality and multiple pathways
 - Building asymmetric upside
 
+**Clarification: Building vs. Giving Up**
+- "Replace failing systems" NOT "let things break"
+- "Build better alternatives" NOT "accept decay"
+- "Strategic abandonment for stronger replacement" NOT "neglect and hope"
+- "Informed choice about third parties" NOT "avoid all dependencies"
+- Expansion and agency always. Contraction and resignation never.
+
 ### Agency over dependence
 - Permission-free action
 - Sovereignty (personal, financial)
@@ -154,4 +161,4 @@ Before generating or approving a draft, ask:
 
 ---
 
-**Last Updated:** February 8, 2026
+**Last Updated:** February 14, 2026
